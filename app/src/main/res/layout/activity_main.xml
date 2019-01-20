@@ -2,39 +2,50 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/randomPropertyButton"
-        android:layout_width="221dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Random property"
-        tools:layout_editor_absoluteX="82dp"
-        tools:layout_editor_absoluteY="92dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/propertiesListButton"
-        android:layout_width="221dp"
-        android:layout_height="wrap_content"
-        android:text="List of properties"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="214dp" />
+        <Button
+            android:id="@+id/btn_random_property"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:onClick="launchPropertyActivity"
+            android:text="@string/action_random_property" />
 
-    <Button
-        android:id="@+id/proposePropertyButton2"
-        android:layout_width="221dp"
-        android:layout_height="wrap_content"
-        android:text="Propose a property"
-        tools:layout_editor_absoluteX="82dp"
-        tools:layout_editor_absoluteY="152dp" />
+        <Button
+            android:id="@+id/btn_propose_property"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/action_propose_property" />
 
-    <Button
-        android:id="@+id/profilButton"
-        android:layout_width="221dp"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="287dp" />
+        <Button
+            android:id="@+id/btn_list_properties"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/action_properties_list" />
+
+        <Button
+            android:id="@+id/btn_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/action_profile" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
