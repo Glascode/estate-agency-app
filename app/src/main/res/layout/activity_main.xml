@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -10,31 +11,9 @@
         android:id="@+id/randomPropertyButton"
         android:layout_width="221dp"
         android:layout_height="wrap_content"
+        android:onClick="okhttp"
         android:text="Random property"
         tools:layout_editor_absoluteX="82dp"
         tools:layout_editor_absoluteY="92dp" />
 
-    <Button
-        android:id="@+id/propertiesListButton"
-        android:layout_width="221dp"
-        android:layout_height="wrap_content"
-        android:text="List of properties"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="214dp" />
-
-    <Button
-        android:id="@+id/proposePropertyButton2"
-        android:layout_width="221dp"
-        android:layout_height="wrap_content"
-        android:text="Propose a property"
-        tools:layout_editor_absoluteX="82dp"
-        tools:layout_editor_absoluteY="152dp" />
-
-    <Button
-        android:id="@+id/profilButton"
-        android:layout_width="221dp"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="287dp" />
 </android.support.constraint.ConstraintLayout>
