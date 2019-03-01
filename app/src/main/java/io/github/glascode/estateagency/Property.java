@@ -4,8 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Property {
-
-	private int id;
+	private String id;
 	private String title;
 	private String description;
 	private int rooms;
@@ -17,18 +16,23 @@ public class Property {
 	private List<String> imagesUrls;
 	private Date date;
 
-	public Property(int id, String title, String description) {
+	public Property(String id, String title, String description, int rooms, List<String> features, int price, String city, int zipCode, Seller seller, List<String> imagesUrls, long epochTime) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
+		this.rooms = rooms;
+		this.features = features;
+		this.price = price;
+		this.city = city;
+		this.zipCode = zipCode;
+		this.seller = seller;
+		this.imagesUrls = imagesUrls;
+
+		this.date = new Date(epochTime);
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getTitle() {
@@ -107,7 +111,7 @@ public class Property {
 		return date;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDate(long date) {
+		this.date = new Date(date);
 	}
 }

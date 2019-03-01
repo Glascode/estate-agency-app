@@ -4,8 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.util.Date;
-
 public class PropertyActivity extends AppCompatActivity {
 	private String propertyTitle;
 	private int propertyPrice;

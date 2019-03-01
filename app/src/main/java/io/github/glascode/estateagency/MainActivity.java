@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collections;
 import android.util.Log;
-import android.view.View;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -31,16 +32,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void launchPropertyActivity(View v) {
+    private Property getRandomProperty() {
+    	Seller seller = new Seller("0", "","CarlImmo", "carl@immo.com", "06.56.87.51.89");
+
+    	Property property = new Property("0","Maison 250m2 proche Caen", "Maison traditionnelle", 0, null, 350000, "Caen", 14000, seller, new ArrayList<>(Collections.singletonList("house")), 1547251200000l);
+
+        return property;
+    }
+
+    public void launchRandomPropertyActivity(View v) {
 		Intent intent = new Intent(this, PropertyActivity.class);
-		intent.putExtra("propertyTitle", "Maison 250m2 proche Caen");
-		intent.putExtra("propertyPrice", 350000);
-		intent.putExtra("propertyLocation", "Caen");
-		intent.putExtra("propertyDescription", "Maison traditionnelle");
-		intent.putExtra("propertyPublicationDate", "12 january 2019");
-		intent.putExtra("propertySellerName", "CarlImmo");
-		intent.putExtra("propertySellerMail", "carl@immo.com");
-		intent.putExtra("propertySellerNumber", "06.56.87.51.89");
+
+		Property property = getRandomProperty();
+
+		intent.putExtra("propertyTitle", property.getTitle());
+		intent.putExtra("propertyPrice", property.getPrice());
+		intent.putExtra("propertyLocation", property.getCity());
+		intent.putExtra("propertyDescription", property.getDescription());
+		intent.putExtra("propertyPublicationDate", DateFormat.format("dd MMMM yyyy",  property.getDate()));
+		intent.putExtra("propertySellerName", property.getSeller().getName());
+		intent.putExtra("propertySellerMail", property.getSeller().getEmail());
+		intent.putExtra("propertySellerNumber", property.getSeller().getPhone());
 
 		startActivity(intent);
     }
@@ -72,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 						Log.i("JML", responseHeaders.name(i) + ": " + responseHeaders.value(i));
 					}
 
-					Snackbar.make(findViewById(R.id.mainLayout), responseBody.string(), Snackbar.LENGTH_LONG).show();
+					Snackbar.make(findViewById(R.id.layout_main), responseBody.string(), Snackbar.LENGTH_LONG).show();
 
 					//Property property1 = makePropertyFromJson(responseBody.string());
 				}
@@ -87,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 		try {
 			Property property = jsonAdapter.fromJson(jsonString);
 			String message = property.getId() + ", " + property.getTitle() + ", " + property.getDescription();
-			Snackbar.make( findViewById(R.id.mainLayout), message, Snackbar.LENGTH_LONG).show();
+			Snackbar.make( findViewById(R.id.layout_main), message, Snackbar.LENGTH_LONG).show();
 			return property;
 		} catch (IOException e) {
 			Log.i("JML", "Erreur I/O");
