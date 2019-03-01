@@ -1,42 +1,51 @@
 package io.github.glascode.estateagency;
 
-import java.util.Date;
 import java.util.List;
 
 public class Property {
 
-	private int id;
-	private String title;
+	private String id;
+	private String titre;
 	private String description;
-	private int rooms;
-	private List<String> features;
-	private int price;
-	private String city;
-	private int zipCode;
-	private Seller seller;
-	private List<String> imagesUrls;
-	private Date date;
+	private int nbPieces;
+	private List<String> caracteristiques;
+	private int prix;
+	private String ville;
+	private String codePostal;
+	private Seller vendeur;
+	private List<String> images;
+	private long date;
 
-	public Property(int id, String title, String description) {
+	public Property(String id, String titre, String description, int nbPieces,
+					List<String> caracteristiques, int prix, String ville, String codePostal,
+					Seller vendeur, List<String> images, long date) {
 		this.id = id;
-		this.title = title;
+		this.titre = titre;
 		this.description = description;
+		this.nbPieces = nbPieces;
+		this.caracteristiques = caracteristiques;
+		this.prix = prix;
+		this.ville = ville;
+		this.codePostal = codePostal;
+		this.vendeur = vendeur;
+		this.images = images;
+		this.date = date;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getTitre() {
+		return titre;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setTitre(String titre) {
+		this.titre = titre;
 	}
 
 	public String getDescription() {
@@ -47,67 +56,79 @@ public class Property {
 		this.description = description;
 	}
 
-	public int getRooms() {
-		return rooms;
+	public int getNbPieces() {
+		return nbPieces;
 	}
 
-	public void setRooms(int rooms) {
-		this.rooms = rooms;
+	public void setNbPieces(int nbPieces) {
+		this.nbPieces = nbPieces;
 	}
 
-	public List<String> getFeatures() {
-		return features;
+	public List<String> getCaracteristiques() {
+		return caracteristiques;
 	}
 
 	public void addFeature(String feature) {
-		features.add(feature);
+		caracteristiques.add(feature);
 	}
 
-	public int getPrice() {
-		return price;
+	public int getPrix() {
+		return prix;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setPrix(int prix) {
+		this.prix = prix;
 	}
 
-	public String getCity() {
-		return city;
+	public String getVille() {
+		return ville;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setVille(String ville) {
+		this.ville = ville;
 	}
 
-	public int getZipCode() {
-		return zipCode;
+	public String getCodePostal() {
+		return codePostal;
 	}
 
-	public void setZipCode(int zipCode) {
-		this.zipCode = zipCode;
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
 	}
 
-	public Seller getSeller() {
-		return seller;
+	public Seller getVendeur() {
+		return vendeur;
 	}
 
-	public void setSeller(Seller seller) {
-		this.seller = seller;
+	public void setVendeur(Seller vendeur) {
+		this.vendeur = vendeur;
 	}
 
-	public List<String> getImagesUrls() {
-		return imagesUrls;
+	public List<String> getImages() {
+		return images;
 	}
 
 	public void addImageUrl(String imageUrl) {
-		imagesUrls.add(imageUrl);
+		images.add(imageUrl);
 	}
 
-	public Date getDate() {
+	public long getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(long date) {
 		this.date = date;
+	}
+
+	public String toString() {
+		return "id: " + id + ",\n" +
+				"titre: " + titre + ",\n" +
+				"description: " + description + ",\n" +
+				"nbPieces: " + nbPieces + "\n" +
+				"caracteristiques: " + caracteristiques + "\n" +
+				"prix: " + prix + "\n" +
+				"ville: " + ville + "\n" +
+				"codePostal: " + codePostal + "\n" +
+				"vender: " + vendeur + "\n";
 	}
 }

@@ -7,6 +7,7 @@ import android.widget.TextView;
 import java.util.Date;
 
 public class PropertyActivity extends AppCompatActivity {
+
 	private String propertyTitle;
 	private int propertyPrice;
 	private String propertyLocation;
@@ -61,4 +62,5 @@ public class PropertyActivity extends AppCompatActivity {
 		propertySellerMailText.setText(getString(R.string.msg_property_seller_mail, propertySellerMail));
 		propertySellerNumberText.setText(getString(R.string.msg_property_seller_number, propertySellerNumber));
 	}
+
 }

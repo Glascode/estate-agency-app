@@ -39,8 +39,7 @@
 				android:contentDescription="@string/msg_property_description"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/text_property_title"
-				app:srcCompat="@drawable/house" />
+				app:layout_constraintTop_toBottomOf="@+id/text_property_title" />
 		</android.support.constraint.ConstraintLayout>
 
 		<android.support.constraint.ConstraintLayout
