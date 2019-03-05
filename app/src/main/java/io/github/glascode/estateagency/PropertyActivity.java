@@ -39,32 +39,9 @@ public class PropertyActivity extends AppCompatActivity {
 		propertySellerNumberText = findViewById(R.id.text_property_seller_number);
 
 		makeHttpRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/immobilier.json");
-		updateUI();
 	}
 
 	private void updateUI() {
-		String propertyTitle = property.getTitre();
-		int propertyPrice = property.getPrix();
-		String propertyLocation = property.getVille();
-		String propertyDescription = property.getDescription();
-		String propertyPublicationDate = DateFormat.format("dd MMMM yyyy", property.getDate()).toString();
-		String propertySellerName = property.getVendeur().getNom();
-		String propertySellerMail = property.getVendeur().getEmail();
-		String propertySellerNumber = property.getVendeur().getTelephone();
-
-		propertyTitleText.setText(getString(R.string.title_property, propertyTitle));
-		propertyPriceText.setText(getString(R.string.msg_property_price, propertyPrice));
-		propertyLocationText.setText(getString(R.string.msg_property_location, propertyLocation));
-		propertyDescriptionText.setText(getString(R.string.msg_property_description, propertyDescription));
-		propertyPublicationDateText.setText(getString(R.string.msg_property_publication_date, propertyPublicationDate));
-		propertySellerNameText.setText(getString(R.string.msg_property_seller_name, propertySellerName));
-		propertySellerMailText.setText(getString(R.string.msg_property_seller_mail, propertySellerMail));
-		propertySellerNumberText.setText(getString(R.string.msg_property_seller_number, propertySellerNumber));
-	}
-
-	private void updateUI(String responseBody) {
-		property = makePropertyFromJson(responseBody);
-
 		String propertyTitle = property.getTitre();
 		int propertyPrice = property.getPrix();
 		String propertyLocation = property.getVille();
@@ -102,45 +79,22 @@ public class PropertyActivity extends AppCompatActivity {
 						throw new IOException("Unexpected HTTP code " + response);
 					}
 
-					Headers responseHeaders = response.headers();
-					for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-						Log.i("JML", responseHeaders.name(i) + ": "
-								+ responseHeaders.value(i));
-					}
+					Moshi moshi = new Moshi.Builder().build();
+					JsonAdapter<PropertyResponse> jsonAdapter = moshi.adapter(PropertyResponse.class);
 
-					property = makePropertyFromJson(responseBody.string());
+					PropertyResponse proprieteResponse = jsonAdapter.fromJson(responseBody.string());
+					property = proprieteResponse.getResponse();
 
-					final String body = responseBody.string();
+					// Update UI
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							updateUI(body);
+							updateUI();
 						}
 					});
 				}
 			}
 		});
-	}
-
-	private Property makePropertyFromJson(String jsonResponse) {
-		Moshi moshi = new Moshi.Builder().build();  // create Moshi
-
-		// Create the adapter for Property
-		Property property = null;
-		PropertyResponse propertyResponse;
-		JsonAdapter<PropertyResponse> jsonAdapter = moshi.adapter(PropertyResponse.class);
-
-		try {
-			Log.d("Execution", "Adapting the property from JSON");
-			propertyResponse = jsonAdapter.fromJson(jsonResponse);
-			property = propertyResponse.getResponse();
-			Log.d("Execution", "Adapted!");
-			Log.d("Execution", "Property:\n" + property);
-		} catch (IOException e) {
-			Log.i("JML", "Erreur I/O");
-		}
-
-		return property;
 	}
 
 }
