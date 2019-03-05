@@ -1,5 +1,7 @@
 package io.github.glascode.estateagency;
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class Property {
 	private String codePostal;
 	private Seller vendeur;
 	private List<String> images;
-	private Date date;
+	private long date;
 
 	public Property(String id, String titre, String description, int nbPieces,
 					List<String> caracteristiques, int prix, String ville, String codePostal,
@@ -30,7 +32,7 @@ public class Property {
 		this.codePostal = codePostal;
 		this.vendeur = vendeur;
 		this.images = images;
-		this.date = new Date(date);
+		this.date = date;
 	}
 
 	public String getId() {
@@ -113,14 +115,15 @@ public class Property {
 		images.add(imageUrl);
 	}
 
-	public Date getDate() {
+	public long getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(long date) {
 		this.date = date;
 	}
 
+	@NonNull
 	public String toString() {
 		return "id: " + id + ",\n" +
 				"titre: " + titre + ",\n" +
