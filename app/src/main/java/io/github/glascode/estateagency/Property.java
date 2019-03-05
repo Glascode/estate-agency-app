@@ -1,5 +1,6 @@
 package io.github.glascode.estateagency;
 
+import java.util.Date;
 import java.util.List;
 
 public class Property {
@@ -14,7 +15,7 @@ public class Property {
 	private String codePostal;
 	private Seller vendeur;
 	private List<String> images;
-	private long date;
+	private Date date;
 
 	public Property(String id, String titre, String description, int nbPieces,
 					List<String> caracteristiques, int prix, String ville, String codePostal,
@@ -29,7 +30,7 @@ public class Property {
 		this.codePostal = codePostal;
 		this.vendeur = vendeur;
 		this.images = images;
-		this.date = date;
+		this.date = new Date(date);
 	}
 
 	public String getId() {
@@ -112,11 +113,11 @@ public class Property {
 		images.add(imageUrl);
 	}
 
-	public long getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
