@@ -28,9 +28,8 @@ public class MainActivity extends AppCompatActivity {
 		startActivity(new Intent(this, PropertyActivity.class));
 	}
 
-	public void launchPropertiesListActivity(View view) {
-		String url = "https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json";
-
+	public void launchPropertiesActivity(View view) {
+		startActivity(new Intent(this, PropertiesActivity.class));
 	}
 
 	public List<Property> makePropertiesFromJson(String jsonResponse) {
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 		JsonAdapter<List<Property>> adapter = moshi.adapter(type);
 
 		try {
-			Log.d("Execution", "List<Property> properties = adapter.fromJson(jsonResponse);");
+			Log.d("Execution", "List<Property> response = adapter.fromJson(jsonResponse);");
 
 			List<Property> properties = adapter.fromJson(jsonResponse);
 

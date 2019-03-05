@@ -125,7 +125,7 @@ public class Property {
 
 	@NonNull
 	public String toString() {
-		return "id: " + id + ",\n" +
+		return "{ id: " + id + ",\n" +
 				"titre: " + titre + ",\n" +
 				"description: " + description + ",\n" +
 				"nbPieces: " + nbPieces + "\n" +
@@ -133,6 +133,6 @@ public class Property {
 				"prix: " + prix + "\n" +
 				"ville: " + ville + "\n" +
 				"codePostal: " + codePostal + "\n" +
-				"vender: " + vendeur + "\n";
+				"vender: " + vendeur + " }\n";
 	}
 }

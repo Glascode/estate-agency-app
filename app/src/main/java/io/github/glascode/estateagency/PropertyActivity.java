@@ -3,7 +3,6 @@ package io.github.glascode.estateagency;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.widget.TextView;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -38,7 +37,7 @@ public class PropertyActivity extends AppCompatActivity {
 		propertySellerMailText = findViewById(R.id.text_property_seller_mail);
 		propertySellerNumberText = findViewById(R.id.text_property_seller_number);
 
-		makeHttpRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/immobilier.json");
+		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/immobilier.json");
 	}
 
 	private void updateUI() {
@@ -61,7 +60,7 @@ public class PropertyActivity extends AppCompatActivity {
 		propertySellerNumberText.setText(getString(R.string.msg_property_seller_number, propertySellerNumber));
 	}
 
-	private void makeHttpRequest(String url) {
+	private void makeRequest(String url) {
 		OkHttpClient client = new OkHttpClient();
 
 		Request request = new Request.Builder().url(url).build();
@@ -82,8 +81,8 @@ public class PropertyActivity extends AppCompatActivity {
 					Moshi moshi = new Moshi.Builder().build();
 					JsonAdapter<PropertyResponse> jsonAdapter = moshi.adapter(PropertyResponse.class);
 
-					PropertyResponse proprieteResponse = jsonAdapter.fromJson(responseBody.string());
-					property = proprieteResponse.getResponse();
+					PropertyResponse propertyResponse = jsonAdapter.fromJson(responseBody.string());
+					property = propertyResponse.getResponse();
 
 					// Update UI
 					runOnUiThread(new Runnable() {
