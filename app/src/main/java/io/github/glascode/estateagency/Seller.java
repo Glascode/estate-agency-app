@@ -1,5 +1,7 @@
 package io.github.glascode.estateagency;
 
+import android.support.annotation.NonNull;
+
 public class Seller {
 
 	private String id;
@@ -34,5 +36,15 @@ public class Seller {
 
 	public String getTelephone() {
 		return telephone;
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return "{\n\tid: " + id + ",\n" +
+				"\tnom: " + nom + ",\n" +
+				"\tprenom: " + prenom + ",\n" +
+				"\temail: " + email + "\n" +
+				"\ttelephone: " + telephone + "\n}\n";
 	}
 }

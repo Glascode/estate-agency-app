@@ -19,16 +19,15 @@ public class PropertyListActivity extends AppCompatActivity {
 
 	private List<Property> propertyList;
 
+	private RecyclerView propertyListRecyclerView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_property_list);
 
-		RecyclerView recyclerView = findViewById(R.id.layout_property_list_view);
-
-		recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-		recyclerView.setAdapter(new PropertyAdapter(this.propertyList));
+		propertyListRecyclerView = findViewById(R.id.layout_property_list_view);
+		propertyListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
 	}
@@ -39,9 +38,7 @@ public class PropertyListActivity extends AppCompatActivity {
 	}
 
 	private void updateUI() {
-		for (Property property : propertyList) {
-			Log.d("UpdateUI", "Property:\n" + property);
-		}
+		propertyListRecyclerView.setAdapter(new PropertyAdapter(propertyList));
 	}
 
 	private void makeRequest(String url) {

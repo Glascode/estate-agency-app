@@ -132,6 +132,6 @@ public class Property {
 				"\tprix: " + prix + "\n" +
 				"\tville: " + ville + "\n" +
 				"\tcodePostal: " + codePostal + "\n" +
-				"\tvender: " + vendeur + "\n}\n";
+				"\tvendeur: " + vendeur + "\n}\n";
 	}
 }
