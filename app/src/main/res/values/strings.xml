@@ -1,17 +1,18 @@
 <resources>
-	<string name="app_name">Estate Agency</string>
-	<string name="action_random_property">Random property</string>
-	<string name="action_propose_property">Propose a property</string>
-	<string name="action_properties_list">List of properties</string>
-	<string name="action_profile">Profile</string>
+    <string name="app_name">Estate Agency</string>
+    <string name="action_random_property">Random property</string>
+    <string name="action_propose_property">Propose a property</string>
+    <string name="action_properties_list">List of properties</string>
+    <string name="action_profile">Profile</string>
 
-	<string name="title_property">%s</string>
-	<string name="msg_property_image_desc">Image of the property</string>
-	<string name="msg_property_price">%d €</string>
-	<string name="msg_property_location">%s</string>
-	<string name="msg_property_description">%s</string>
-	<string name="msg_property_publication_date">Published the %s</string>
-	<string name="msg_property_seller_name">%s</string>
-	<string name="msg_property_seller_mail">%s</string>
-	<string name="msg_property_seller_number">%s</string>
+    <string name="title_property">%s</string>
+    <string name="msg_property_image_desc">Image of the property</string>
+    <string name="msg_property_price">%d €</string>
+    <string name="msg_property_location">%s</string>
+    <string name="msg_property_description">%s</string>
+    <string name="msg_property_publication_date">Published the %s</string>
+    <string name="msg_property_seller_name">%s</string>
+    <string name="msg_property_seller_mail">%s</string>
+    <string name="msg_property_seller_number">%s</string>
+    <string name="title_activity_property_list">PropertyListActivity</string>
 </resources>

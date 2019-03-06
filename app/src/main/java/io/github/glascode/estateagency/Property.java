@@ -1,5 +1,8 @@
 package io.github.glascode.estateagency;
 
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

@@ -25,6 +25,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class MainActivity extends AppCompatActivity {
+	
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private Property getRandomProperty() {
     	Seller seller = new Seller("0", "","CarlImmo", "carl@immo.com", "06.56.87.51.89");
 
-    	Property property = new Property("0","Maison 250m2 proche Caen", "Maison traditionnelle", 0, null, 350000, "Caen", 14000, seller, new ArrayList<>(Collections.singletonList("house")), 1547251200000l);
-
-        return property;
+		return new Property("0","Maison 250m2 proche Caen", "Maison traditionnelle", 0, null, 350000, "Caen", 14000, seller, new ArrayList<>(Collections.singletonList("house")), 1547251200000L);
     }
 
     public void launchRandomPropertyActivity(View v) {

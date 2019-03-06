@@ -20,9 +20,9 @@
 				android:id="@+id/text_property_title"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginTop="8dp"
-				android:layout_marginEnd="6dp"
+				android:layout_marginStart="16dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginEnd="16dp"
 				android:text="@string/title_property"
 				android:textAppearance="@style/TextAppearance.AppCompat.Title"
 				app:layout_constraintEnd_toEndOf="parent"
@@ -33,9 +33,9 @@
 				android:id="@+id/image_property"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginTop="8dp"
-				android:layout_marginEnd="8dp"
+				android:layout_marginStart="16dp"
+				android:layout_marginTop="16dp"
+				android:layout_marginEnd="16dp"
 				android:contentDescription="@string/msg_property_description"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
@@ -48,24 +48,24 @@
 			android:layout_height="wrap_content">
 
 			<TextView
-				android:id="@+id/text_property_price"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginTop="8dp"
-				android:text="@string/msg_property_price"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent" />
+					android:id="@+id/text_property_price"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="16dp"
+					android:text="@string/msg_property_price"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"/>
 
 			<TextView
-				android:id="@+id/text_property_location"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="8dp"
-				android:layout_marginEnd="8dp"
-				android:text="@string/msg_property_location"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintTop_toTopOf="parent" />
+					android:id="@+id/text_property_location"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="16dp"
+					android:layout_marginEnd="16dp"
+					android:text="@string/msg_property_location"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintTop_toTopOf="parent"/>
 		</android.support.constraint.ConstraintLayout>
 
 		<android.support.constraint.ConstraintLayout
@@ -74,14 +74,14 @@
 			android:layout_weight="1">
 
 			<TextView
-				android:id="@+id/text_property_description"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginTop="8dp"
-				android:text="@string/msg_property_description"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent" />
+					android:id="@+id/text_property_description"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="16dp"
+					android:text="@string/msg_property_description"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"/>
 
 		</android.support.constraint.ConstraintLayout>
 
@@ -90,30 +90,30 @@
 			android:layout_height="wrap_content">
 
 			<TextView
-				android:id="@+id/text_property_publication_date"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginTop="8dp"
-				android:text="@string/msg_property_publication_date"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent" />
+					android:id="@+id/text_property_publication_date"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="16dp"
+					android:text="@string/msg_property_publication_date"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"/>
 
 			<TextView
-				android:id="@+id/text_property_seller_name"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginTop="8dp"
-				android:text="@string/msg_property_seller_name"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/text_property_publication_date" />
+					android:id="@+id/text_property_seller_name"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="16dp"
+					android:layout_marginTop="16dp"
+					android:text="@string/msg_property_seller_name"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/text_property_publication_date"/>
 
 			<TextView
 				android:id="@+id/text_property_seller_mail"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
+				android:layout_marginStart="16dp"
 				android:text="@string/msg_property_seller_mail"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/text_property_seller_name" />
@@ -122,8 +122,8 @@
 				android:id="@+id/text_property_seller_number"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="8dp"
-				android:layout_marginBottom="8dp"
+				android:layout_marginStart="16dp"
+				android:layout_marginBottom="16dp"
 				android:text="@string/msg_property_seller_number"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
