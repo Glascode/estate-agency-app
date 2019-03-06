@@ -2,7 +2,6 @@ package io.github.glascode.estateagency;
 
 import android.support.annotation.NonNull;
 
-import java.util.Date;
 import java.util.List;
 
 public class Property {
@@ -125,14 +124,14 @@ public class Property {
 
 	@NonNull
 	public String toString() {
-		return "{ id: " + id + ",\n" +
-				"titre: " + titre + ",\n" +
-				"description: " + description + ",\n" +
-				"nbPieces: " + nbPieces + "\n" +
-				"caracteristiques: " + caracteristiques + "\n" +
-				"prix: " + prix + "\n" +
-				"ville: " + ville + "\n" +
-				"codePostal: " + codePostal + "\n" +
-				"vender: " + vendeur + " }\n";
+		return "{\n\tid: " + id + ",\n" +
+				"\ttitre: " + titre + ",\n" +
+				"\tdescription: " + description + ",\n" +
+				"\tnbPieces: " + nbPieces + "\n" +
+				"\tcaracteristiques: " + caracteristiques + "\n" +
+				"\tprix: " + prix + "\n" +
+				"\tville: " + ville + "\n" +
+				"\tcodePostal: " + codePostal + "\n" +
+				"\tvender: " + vendeur + "\n}\n";
 	}
 }

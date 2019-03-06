@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void launchPropertiesActivity(View view) {
-		startActivity(new Intent(this, PropertiesActivity.class));
+		startActivity(new Intent(this, PropertyListActivity.class));
 	}
 
 	public List<Property> makePropertiesFromJson(String jsonResponse) {

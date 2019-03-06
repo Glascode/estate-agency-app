@@ -79,9 +79,9 @@ public class PropertyActivity extends AppCompatActivity {
 					}
 
 					Moshi moshi = new Moshi.Builder().build();
-					JsonAdapter<PropertyResponse> jsonAdapter = moshi.adapter(PropertyResponse.class);
+					JsonAdapter<PropertyResponse> adapter = moshi.adapter(PropertyResponse.class);
 
-					PropertyResponse propertyResponse = jsonAdapter.fromJson(responseBody.string());
+					PropertyResponse propertyResponse = adapter.fromJson(responseBody.string());
 					property = propertyResponse.getResponse();
 
 					// Update UI
@@ -94,6 +94,16 @@ public class PropertyActivity extends AppCompatActivity {
 				}
 			}
 		});
+	}
+
+	public static class PropertyResponse {
+
+		public Property response;
+
+		public Property getResponse() {
+			return response;
+		}
+
 	}
 
 }
