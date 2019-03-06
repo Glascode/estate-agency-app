@@ -2,7 +2,12 @@ package io.github.glascode.estateagency;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import okhttp3.*;
@@ -19,7 +24,18 @@ public class PropertyListActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_property_list);
 
+		RecyclerView recyclerView = findViewById(R.id.layout_property_list_view);
+
+		recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+		recyclerView.setAdapter(new PropertyAdapter(this.propertyList));
+
 		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
+	}
+
+	public void viewItem(View v) {
+		TextView clicked = (TextView) v;
+		Toast.makeText(this, "Click sur item" + clicked.getText().toString(), Toast.LENGTH_SHORT).show();
 	}
 
 	private void updateUI() {
