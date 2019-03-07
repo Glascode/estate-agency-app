@@ -1,10 +1,8 @@
 package io.github.glascode.estateagency;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +18,7 @@ class PropertyViewHolder extends RecyclerView.ViewHolder {
 	PropertyViewHolder(@NonNull View itemView) {
 		super(itemView);
 
-		propertyImageView = itemView.findViewById(R.id.image_property_item);
+		propertyImageView = itemView.findViewById(R.id.image_property);
 		propertyTitleText = itemView.findViewById(R.id.text_property_item_title);
 		propertyPriceText = itemView.findViewById(R.id.text_property_item_price);
 		propertyLocationText = itemView.findViewById(R.id.text_property_item_location);
@@ -28,8 +26,7 @@ class PropertyViewHolder extends RecyclerView.ViewHolder {
 	}
 
 	void bind(Property property) {
-		// TODO: Make the image show
-		propertyImageView.setImageURI(Uri.parse(property.getImages().get(0)));
+		new DownloadImageTask(propertyImageView).execute(property.getImages().get(0));
 		propertyTitleText.setText(property.getTitre());
 		propertyPriceText.setText(String.format("%d", property.getPrix()) + " €");
 		propertyLocationText.setText(property.getVille());
@@ -37,5 +34,4 @@ class PropertyViewHolder extends RecyclerView.ViewHolder {
 
 		System.out.println(property.toString());
 	}
-
 }
