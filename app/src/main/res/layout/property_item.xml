@@ -1,62 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content">
 
 	<ImageView
 		android:id="@+id/image_property_item"
-		android:layout_width="120dp"
-		android:layout_height="120dp"
+		android:layout_width="100dp"
+		android:layout_height="0dp"
 		android:layout_marginStart="8dp"
 		android:layout_marginTop="8dp"
+		android:layout_marginBottom="8dp"
 		android:contentDescription="@string/msg_property_image_desc"
+		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
 		android:id="@+id/text_property_item_title"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_width="257dp"
+		android:layout_height="0dp"
 		android:layout_marginStart="16dp"
 		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
 		android:text="TextView"
-		android:textAppearance="@style/TextAppearance.AppCompat.Large"
+		android:textAppearance="@style/TextAppearance.AppCompat.Title"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toEndOf="@+id/image_property_item"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
 		android:id="@+id/text_property_item_price"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="16dp"
-		android:layout_marginTop="8dp"
+		android:layout_marginTop="4dp"
+		android:layout_marginEnd="8dp"
 		android:text="TextView"
 		android:textColor="@color/colorAccent"
+		android:textSize="18sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toEndOf="@+id/image_property_item"
 		app:layout_constraintTop_toBottomOf="@+id/text_property_item_title" />
 
 	<TextView
 		android:id="@+id/text_property_item_location"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="16dp"
-		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
 		android:text="TextView"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toEndOf="@+id/image_property_item"
 		app:layout_constraintTop_toBottomOf="@+id/text_property_item_price" />
 
 	<TextView
 		android:id="@+id/text_property_item_publication_date"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="16dp"
-		android:layout_marginTop="8dp"
-		android:layout_marginBottom="4dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginBottom="8dp"
 		android:text="TextView"
 		android:textAppearance="@style/TextAppearance.AppCompat.Small"
 		android:textSize="12sp"
 		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toEndOf="@+id/image_property_item"
 		app:layout_constraintTop_toBottomOf="@+id/text_property_item_location" />
 </android.support.constraint.ConstraintLayout>

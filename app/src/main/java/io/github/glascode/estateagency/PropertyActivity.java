@@ -46,7 +46,7 @@ public class PropertyActivity extends AppCompatActivity {
 		String propertyLocation = property.getVille();
 		String propertyDescription = property.getDescription();
 		String propertyPublicationDate = DateFormat.format("dd MMMM yyyy", property.getDate()).toString();
-		String propertySellerName = property.getVendeur().getNom();
+		String propertySellerName = property.getVendeur().getPrenom() + " " + property.getVendeur().getNom();
 		String propertySellerMail = property.getVendeur().getEmail();
 		String propertySellerNumber = property.getVendeur().getTelephone();
 
@@ -83,6 +83,8 @@ public class PropertyActivity extends AppCompatActivity {
 
 					PropertyResponse propertyResponse = adapter.fromJson(responseBody.string());
 					property = propertyResponse.getResponse();
+
+					property.setDate(property.getDate() * 1000);
 
 					// Update UI
 					runOnUiThread(new Runnable() {

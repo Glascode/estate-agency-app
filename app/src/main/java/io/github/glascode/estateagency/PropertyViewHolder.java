@@ -31,9 +31,11 @@ class PropertyViewHolder extends RecyclerView.ViewHolder {
 		// TODO: Make the image show
 		propertyImageView.setImageURI(Uri.parse(property.getImages().get(0)));
 		propertyTitleText.setText(property.getTitre());
-		propertyPriceText.setText(String.valueOf(property.getPrix()) + " €");
+		propertyPriceText.setText(String.format("%d", property.getPrix()) + " €");
 		propertyLocationText.setText(property.getVille());
 		propertyPublicationDateText.setText(DateFormat.format("dd MMMM yyyy", property.getDate()).toString());
+
+		System.out.println(property.toString());
 	}
 
 }

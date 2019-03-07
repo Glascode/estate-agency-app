@@ -132,6 +132,7 @@ public class Property {
 				"\tprix: " + prix + "\n" +
 				"\tville: " + ville + "\n" +
 				"\tcodePostal: " + codePostal + "\n" +
-				"\tvendeur: " + vendeur + "\n}\n";
+				"\tvendeur: " + vendeur + "\n" +
+				"\tdate: " + date + "\n}\n";
 	}
 }

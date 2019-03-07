@@ -66,6 +66,9 @@ public class PropertyListActivity extends AppCompatActivity {
 					PropertiesResponse propertiesResponse = adapter.fromJson(responseBody.string());
 					propertyList = propertiesResponse.getResponse();
 
+					for(Property property : propertyList)
+						property.setDate(property.getDate() * 1000);
+
 					// Update UI
 					runOnUiThread(new Runnable() {
 						@Override
