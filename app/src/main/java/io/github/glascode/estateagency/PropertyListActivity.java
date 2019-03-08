@@ -34,37 +34,34 @@ public class PropertyListActivity extends AppCompatActivity {
 		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
 	}
 
-	public void viewItem(View v) {
-		String propertyID = ((TextView) v.findViewById(R.id.text_property_item_id)).getText().toString();
+	public void viewItem(View view) {
+		int pos = propertyListRecyclerView.getChildLayoutPosition(view);
+		Property property = propertyList.get(pos);
 
 		Intent intent = new Intent(this, PropertyActivity.class);
 
-		for (Property property : propertyList) {
-			if (property.getId().equals(propertyID)) {
-				intent.putExtra("property_id", property.getId());
-				intent.putExtra("property_title", property.getTitre());
-				intent.putExtra("property_desc", property.getDescription());
-				intent.putExtra("property_nbRooms", property.getNbPieces());
+		intent.putExtra("property_id", property.getId());
+		intent.putExtra("property_title", property.getTitre());
+		intent.putExtra("property_desc", property.getDescription());
+		intent.putExtra("property_nbRooms", property.getNbPieces());
 
-				List<String> features = new ArrayList<>(property.getCaracteristiques());
-				intent.putExtra("property_features", (ArrayList<String>) features);
+		List<String> features = new ArrayList<>(property.getCaracteristiques());
+		intent.putExtra("property_features", (ArrayList<String>) features);
 
-				intent.putExtra("property_price", property.getPrix());
-				intent.putExtra("property_city", property.getVille());
-				intent.putExtra("property_zipCode", property.getCodePostal());
+		intent.putExtra("property_price", property.getPrix());
+		intent.putExtra("property_city", property.getVille());
+		intent.putExtra("property_zipCode", property.getCodePostal());
 
-				intent.putExtra("property_sellerId", property.getVendeur().getId());
-				intent.putExtra("property_sellerSurname", property.getVendeur().getPrenom());
-				intent.putExtra("property_sellerName", property.getVendeur().getNom());
-				intent.putExtra("property_sellerEmail", property.getVendeur().getEmail());
-				intent.putExtra("property_sellerNumber", property.getVendeur().getTelephone());
+		intent.putExtra("property_sellerId", property.getVendeur().getId());
+		intent.putExtra("property_sellerSurname", property.getVendeur().getPrenom());
+		intent.putExtra("property_sellerName", property.getVendeur().getNom());
+		intent.putExtra("property_sellerEmail", property.getVendeur().getEmail());
+		intent.putExtra("property_sellerNumber", property.getVendeur().getTelephone());
 
-				List<String> images = new ArrayList<>(property.getImages());
-				intent.putExtra("property_images", (ArrayList<String>) images);
+		List<String> images = new ArrayList<>(property.getImages());
+		intent.putExtra("property_images", (ArrayList<String>) images);
 
-				intent.putExtra("property_publicationDate", property.getDate());
-			}
-		}
+		intent.putExtra("property_publicationDate", property.getDate());
 
 		startActivity(intent);
 	}
