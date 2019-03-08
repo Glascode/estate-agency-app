@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -90,9 +91,10 @@ public class PropertyListActivity extends AppCompatActivity {
 					ResponseBody responseBody = response.body();
 
 					JSONObject jsonObject = new JSONObject(responseBody.string());
-					jsonObject = new JSONArray(jsonObject.getString("response")).getJSONObject(1);
+					JSONArray jsonArray = new JSONArray(jsonObject.getString("response"));
 
 					String jsonString = jsonObject.toString();
+					Log.d("JSON", jsonString);
 
 				} catch (JSONException e) {
 					e.printStackTrace();
