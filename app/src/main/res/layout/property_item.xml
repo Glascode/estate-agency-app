@@ -3,10 +3,11 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content">
+	android:layout_height="wrap_content"
+	android:onClick="viewItem">
 
 	<ImageView
-		android:id="@+id/image_property"
+		android:id="@+id/image_property_item"
 		android:layout_width="100dp"
 		android:layout_height="0dp"
 		android:layout_marginStart="8dp"
@@ -14,6 +15,17 @@
 		android:layout_marginBottom="8dp"
 		android:contentDescription="@string/msg_property_image_desc"
 		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/text_property_item_id"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:text="TextView"
+		android:visibility="invisible"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +40,7 @@
 		android:textAppearance="@style/TextAppearance.AppCompat.Title"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
-		app:layout_constraintStart_toEndOf="@+id/image_property"
+		app:layout_constraintStart_toEndOf="@+id/image_property_item"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
@@ -43,7 +55,7 @@
 		android:textSize="18sp"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
-		app:layout_constraintStart_toEndOf="@+id/image_property"
+		app:layout_constraintStart_toEndOf="@+id/image_property_item"
 		app:layout_constraintTop_toBottomOf="@+id/text_property_item_title" />
 
 	<TextView
@@ -55,7 +67,7 @@
 		android:text="TextView"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
-		app:layout_constraintStart_toEndOf="@+id/image_property"
+		app:layout_constraintStart_toEndOf="@+id/image_property_item"
 		app:layout_constraintTop_toBottomOf="@+id/text_property_item_price" />
 
 	<TextView
@@ -71,6 +83,7 @@
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
-		app:layout_constraintStart_toEndOf="@+id/image_property"
+		app:layout_constraintStart_toEndOf="@+id/image_property_item"
 		app:layout_constraintTop_toBottomOf="@+id/text_property_item_location" />
+
 </android.support.constraint.ConstraintLayout>

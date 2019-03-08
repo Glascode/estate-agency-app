@@ -10,6 +10,7 @@ import android.widget.TextView;
 class PropertyViewHolder extends RecyclerView.ViewHolder {
 
 	private ImageView propertyImageView;
+	private TextView propertyIdText;
 	private TextView propertyTitleText;
 	private TextView propertyPriceText;
 	private TextView propertyLocationText;
@@ -18,7 +19,8 @@ class PropertyViewHolder extends RecyclerView.ViewHolder {
 	PropertyViewHolder(@NonNull View itemView) {
 		super(itemView);
 
-		propertyImageView = itemView.findViewById(R.id.image_property);
+		propertyImageView = itemView.findViewById(R.id.image_property_item);
+		propertyIdText = itemView.findViewById(R.id.text_property_item_id);
 		propertyTitleText = itemView.findViewById(R.id.text_property_item_title);
 		propertyPriceText = itemView.findViewById(R.id.text_property_item_price);
 		propertyLocationText = itemView.findViewById(R.id.text_property_item_location);
@@ -27,6 +29,7 @@ class PropertyViewHolder extends RecyclerView.ViewHolder {
 
 	void bind(Property property) {
 		new DownloadImageTask(propertyImageView).execute(property.getImages().get(0));
+		propertyIdText.setText(property.getId());
 		propertyTitleText.setText(property.getTitre());
 		propertyPriceText.setText(String.format("%d", property.getPrix()) + " €");
 		propertyLocationText.setText(property.getVille());
