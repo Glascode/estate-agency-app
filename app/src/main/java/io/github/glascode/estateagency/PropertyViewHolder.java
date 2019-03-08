@@ -31,7 +31,5 @@ class PropertyViewHolder extends RecyclerView.ViewHolder {
 		propertyPriceText.setText(String.format("%d", property.getPrix()) + " €");
 		propertyLocationText.setText(property.getVille());
 		propertyPublicationDateText.setText(DateFormat.format("dd MMMM yyyy", property.getDate()).toString());
-
-		System.out.println(property.toString());
 	}
 }
