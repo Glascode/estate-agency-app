@@ -40,8 +40,6 @@ public class PropertyActivity extends AppCompatActivity {
 		propertySellerMailText = findViewById(R.id.text_property_seller_mail);
 		propertySellerNumberText = findViewById(R.id.text_property_seller_number);
 
-		String id;
-
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
@@ -66,8 +64,6 @@ public class PropertyActivity extends AppCompatActivity {
 			);
 
 			updateUI();
-		} else {
-			makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/immobilier.json");
 		}
 	}
 
@@ -91,44 +87,6 @@ public class PropertyActivity extends AppCompatActivity {
 		propertySellerNameText.setText(getString(R.string.msg_property_seller_name, propertySellerName));
 		propertySellerMailText.setText(getString(R.string.msg_property_seller_mail, propertySellerMail));
 		propertySellerNumberText.setText(getString(R.string.msg_property_seller_number, propertySellerNumber));
-	}
-
-	private void makeRequest(String url) {
-		OkHttpClient client = new OkHttpClient();
-
-		Request request = new Request.Builder().url(url).build();
-
-		client.newCall(request).enqueue(new Callback() {
-			@Override
-			public void onFailure(Call call, IOException e) {
-				e.printStackTrace();
-			}
-
-			@Override
-			public void onResponse(Call call, Response response) throws IOException {
-				try (ResponseBody responseBody = response.body()) {
-					if (!response.isSuccessful()) {
-						throw new IOException("Unexpected HTTP code " + response);
-					}
-
-					Moshi moshi = new Moshi.Builder().build();
-					JsonAdapter<PropertyResponse> adapter = moshi.adapter(PropertyResponse.class);
-
-					PropertyResponse propertyResponse = adapter.fromJson(responseBody.string());
-					property = propertyResponse.getResponse();
-
-					property.setDate(property.getDate() * 1000);
-
-					// Update UI
-					runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							updateUI();
-						}
-					});
-				}
-			}
-		});
 	}
 
 }

@@ -12,12 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,16 +39,19 @@ public class PropertyListActivity extends AppCompatActivity {
 		propertyListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 		Moshi moshi = new Moshi.Builder().build();
-		JsonAdapter<Property> adapter = moshi.adapter(Property.class);
+
+		Type type = Types.newParameterizedType(List.class, Property.class);
+		JsonAdapter<List> adapter = moshi.adapter(type);
 
 		String jsonPropertyListString = getIntent().getStringExtra("json_property_list");
 
 		try {
-			property = adapter.fromJson(jsonPropertyListString);
+			propertyList = adapter.fromJson(jsonPropertyListString);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
+		updateUI();
 	}
 
 	public void viewItem(View view) {
@@ -85,32 +90,4 @@ public class PropertyListActivity extends AppCompatActivity {
 		propertyListRecyclerView.setAdapter(new PropertyAdapter(propertyList));
 	}
 
-	private void makeRequest(String url) {
-		OkHttpClient client = new OkHttpClient();
-
-		Request request = new Request.Builder().url(url).build();
-
-		client.newCall(request).enqueue(new Callback() {
-			@Override
-			public void onFailure(Call call, IOException e) {
-				e.printStackTrace();
-			}
-
-			@Override
-			public void onResponse(Call call, Response response) throws IOException {
-				try {
-					ResponseBody responseBody = response.body();
-
-					JSONObject jsonObject = new JSONObject(responseBody.string());
-					JSONArray jsonArray = new JSONArray(jsonObject.getString("response"));
-
-					String jsonString = jsonObject.toString();
-					Log.d("JSON", jsonString);
-
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 }

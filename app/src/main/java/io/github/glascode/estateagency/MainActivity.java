@@ -7,14 +7,8 @@ import android.view.View;
 
 import android.util.Log;
 
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
-
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.List;
 
-import com.squareup.moshi.Types;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +16,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-	private String jsonString;
+	private String jsonArrayString;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
 		startActivity(new Intent(this, PropertyActivity.class));
 	}
 
-	public void launchPropertiesActivity(View view) {
+	public void launchPropertyListActivity(View view) {
 		Intent intent = new Intent(this, PropertyListActivity.class);
-		intent.putExtra();
+		intent.putExtra("json_property_list", jsonArrayString);
 		startActivity(intent);
 	}
 
@@ -61,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
 					JSONObject jsonObject = new JSONObject(responseBody.string());
 					JSONArray jsonArray = new JSONArray(jsonObject.getString("response"));
 
-					jsonString = jsonArray.toString();
-					Log.d("JSON", jsonArray.toString());
+					jsonArrayString = jsonArray.toString();
 
 				} catch (JSONException e) {
 					e.printStackTrace();
