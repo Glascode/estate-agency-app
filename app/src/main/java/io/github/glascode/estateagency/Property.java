@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+
 public class Property {
 
 	private String id;
@@ -18,6 +19,24 @@ public class Property {
 	private List<String> images;
 	private long date;
 
+	/**
+	 * Constructs a {@code Property}.
+	 * <p>
+	 * Note: the attributes of the Property had to be written in french because
+	 * of the attributes of the JSON response it depends on.
+	 *
+	 * @param id the id of the Property
+	 * @param titre the title of the Property
+	 * @param description the description of the Property
+	 * @param nbPieces the number of rooms of the Property
+	 * @param caracteristiques the features of the Property
+	 * @param prix the price of the Property
+	 * @param ville the location city of the Property
+	 * @param codePostal the zip code of the Property
+	 * @param vendeur the Seller of the Property
+	 * @param images the images of the Property
+	 * @param date the publication date of the Property
+	 */
 	public Property(String id, String titre, String description, int nbPieces,
 					List<String> caracteristiques, int prix, String ville, String codePostal,
 					Seller vendeur, List<String> images, long date) {

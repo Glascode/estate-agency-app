@@ -46,8 +46,7 @@ public class PropertyListActivity extends AppCompatActivity {
 				intent.putExtra("property_desc", property.getDescription());
 				intent.putExtra("property_nbRooms", property.getNbPieces());
 
-				List<String> features = new ArrayList<>();
-				features.addAll(property.getCaracteristiques());
+				List<String> features = new ArrayList<>(property.getCaracteristiques());
 				intent.putExtra("property_features", (ArrayList<String>) features);
 
 				intent.putExtra("property_price", property.getPrix());
@@ -60,8 +59,7 @@ public class PropertyListActivity extends AppCompatActivity {
 				intent.putExtra("property_sellerEmail", property.getVendeur().getEmail());
 				intent.putExtra("property_sellerNumber", property.getVendeur().getTelephone());
 
-				List<String> images = new ArrayList<>();
-				images.addAll(property.getImages());
+				List<String> images = new ArrayList<>(property.getImages());
 				intent.putExtra("property_images", (ArrayList<String>) images);
 
 				intent.putExtra("property_publicationDate", property.getDate());

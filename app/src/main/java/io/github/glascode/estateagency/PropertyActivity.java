@@ -60,10 +60,10 @@ public class PropertyActivity extends AppCompatActivity {
 							getIntent().getStringExtra("property_sellerSurname"),
 							getIntent().getStringExtra("property_sellerEmail"),
 							getIntent().getStringExtra("property_sellerNumber")
-							),
+					),
 					getIntent().getStringArrayListExtra("property_images"),
 					getIntent().getLongExtra("property_publicationDate", -1)
-					);
+			);
 
 			updateUI();
 		} else {
