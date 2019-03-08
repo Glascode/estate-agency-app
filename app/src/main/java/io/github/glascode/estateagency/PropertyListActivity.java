@@ -14,6 +14,7 @@ import com.squareup.moshi.Moshi;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PropertyListActivity extends AppCompatActivity {
@@ -37,7 +38,35 @@ public class PropertyListActivity extends AppCompatActivity {
 		String propertyID = ((TextView) v.findViewById(R.id.text_property_item_id)).getText().toString();
 
 		Intent intent = new Intent(this, PropertyActivity.class);
-		intent.putExtra("property_id", propertyID);
+
+		for (Property property : propertyList) {
+			if (property.getId().equals(propertyID)) {
+				intent.putExtra("property_id", property.getId());
+				intent.putExtra("property_title", property.getTitre());
+				intent.putExtra("property_desc", property.getDescription());
+				intent.putExtra("property_nbRooms", property.getNbPieces());
+
+				List<String> features = new ArrayList<>();
+				features.addAll(property.getCaracteristiques());
+				intent.putExtra("property_features", (ArrayList<String>) features);
+
+				intent.putExtra("property_price", property.getPrix());
+				intent.putExtra("property_city", property.getVille());
+				intent.putExtra("property_zipCode", property.getCodePostal());
+
+				intent.putExtra("property_sellerId", property.getVendeur().getId());
+				intent.putExtra("property_sellerSurname", property.getVendeur().getPrenom());
+				intent.putExtra("property_sellerName", property.getVendeur().getNom());
+				intent.putExtra("property_sellerEmail", property.getVendeur().getEmail());
+				intent.putExtra("property_sellerNumber", property.getVendeur().getTelephone());
+
+				List<String> images = new ArrayList<>();
+				images.addAll(property.getImages());
+				intent.putExtra("property_images", (ArrayList<String>) images);
+
+				intent.putExtra("property_publicationDate", property.getDate());
+			}
+		}
 
 		startActivity(intent);
 	}
@@ -71,8 +100,9 @@ public class PropertyListActivity extends AppCompatActivity {
 					PropertiesResponse propertiesResponse = adapter.fromJson(responseBody.string());
 					propertyList = propertiesResponse.getResponse();
 
-					for(Property property : propertyList)
+					for (Property property : propertyList) {
 						property.setDate(property.getDate() * 1000);
+					}
 
 					// Update UI
 					runOnUiThread(new Runnable() {

@@ -44,10 +44,31 @@ public class PropertyActivity extends AppCompatActivity {
 
 		Bundle extras = getIntent().getExtras();
 
-		if (extras != null)
-			id = extras.getString("property_id");
-		else
+		if (extras != null) {
+			property = new Property(
+					getIntent().getStringExtra("property_id"),
+					getIntent().getStringExtra("property_title"),
+					getIntent().getStringExtra("property_desc"),
+					getIntent().getIntExtra("property_nbRooms", -1),
+					getIntent().getStringArrayListExtra("property_features"),
+					getIntent().getIntExtra("property_price", -1),
+					getIntent().getStringExtra("property_city"),
+					getIntent().getStringExtra("property_zipCode"),
+					new Seller(
+							getIntent().getStringExtra("property_sellerId"),
+							getIntent().getStringExtra("property_sellerName"),
+							getIntent().getStringExtra("property_sellerSurname"),
+							getIntent().getStringExtra("property_sellerEmail"),
+							getIntent().getStringExtra("property_sellerNumber")
+							),
+					getIntent().getStringArrayListExtra("property_images"),
+					getIntent().getLongExtra("property_publicationDate", -1)
+					);
+
+			updateUI();
+		} else {
 			makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/immobilier.json");
+		}
 	}
 
 	private void updateUI() {
