@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PropertyActivity" />
-        <activity android:name=".PropertyListActivity"></activity>
+        <activity android:name=".PropertyListActivity" />
     </application>
 
 </manifest>

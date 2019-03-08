@@ -7,9 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import com.squareup.moshi.Types;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class PropertyActivity extends AppCompatActivity {
 
@@ -40,31 +43,18 @@ public class PropertyActivity extends AppCompatActivity {
 		propertySellerMailText = findViewById(R.id.text_property_seller_mail);
 		propertySellerNumberText = findViewById(R.id.text_property_seller_number);
 
-		Bundle extras = getIntent().getExtras();
+		Moshi moshi = new Moshi.Builder().build();
+		JsonAdapter<Property> adapter = moshi.adapter(Property.class);
 
-		if (extras != null) {
-			property = new Property(
-					getIntent().getStringExtra("property_id"),
-					getIntent().getStringExtra("property_title"),
-					getIntent().getStringExtra("property_desc"),
-					getIntent().getIntExtra("property_nbRooms", -1),
-					getIntent().getStringArrayListExtra("property_features"),
-					getIntent().getIntExtra("property_price", -1),
-					getIntent().getStringExtra("property_city"),
-					getIntent().getStringExtra("property_zipCode"),
-					new Seller(
-							getIntent().getStringExtra("property_sellerId"),
-							getIntent().getStringExtra("property_sellerName"),
-							getIntent().getStringExtra("property_sellerSurname"),
-							getIntent().getStringExtra("property_sellerEmail"),
-							getIntent().getStringExtra("property_sellerNumber")
-					),
-					getIntent().getStringArrayListExtra("property_images"),
-					getIntent().getLongExtra("property_publicationDate", -1)
-			);
+		String jsonPropertyString = getIntent().getStringExtra("json_property");
 
-			updateUI();
+		try {
+			property = adapter.fromJson(jsonPropertyString);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+
+		updateUI();
 	}
 
 	private void updateUI() {

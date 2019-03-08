@@ -5,9 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import android.util.Log;
-
 import java.io.IOException;
+import java.util.Random;
 
 import okhttp3.*;
 import org.json.JSONArray;
@@ -16,7 +15,7 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-	private String jsonArrayString;
+	private JSONArray jsonPropertyListArray;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +25,20 @@ public class MainActivity extends AppCompatActivity {
 		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
 	}
 
-	public void launchPropertyActivity(View view) {
-		// TODO: Pick random element from the JSONArray
-		startActivity(new Intent(this, PropertyActivity.class));
+	public void launchPropertyActivity(View view) throws JSONException {
+		Random rand = new Random();
+		int randomPos = rand.nextInt(jsonPropertyListArray.length());
+		String jsonPropertyString = jsonPropertyListArray.get(randomPos).toString();
+
+		Intent intent = new Intent(this, PropertyActivity.class);
+		intent.putExtra("json_property", jsonPropertyString);
+
+		startActivity(intent);
 	}
 
 	public void launchPropertyListActivity(View view) {
 		Intent intent = new Intent(this, PropertyListActivity.class);
-		intent.putExtra("json_property_list", jsonArrayString);
+		intent.putExtra("json_property_list", jsonPropertyListArray.toString());
 		startActivity(intent);
 	}
 
@@ -54,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
 					ResponseBody responseBody = response.body();
 
 					JSONObject jsonObject = new JSONObject(responseBody.string());
-					JSONArray jsonArray = new JSONArray(jsonObject.getString("response"));
-
-					jsonArrayString = jsonArray.toString();
+					jsonPropertyListArray = new JSONArray(jsonObject.getString("response"));
 
 				} catch (JSONException e) {
 					e.printStackTrace();

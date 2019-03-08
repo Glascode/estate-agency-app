@@ -9,6 +9,8 @@ import android.view.View;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -17,6 +19,7 @@ import java.util.List;
 
 public class PropertyListActivity extends AppCompatActivity {
 
+	private String jsonPropertyListString;
 	private List<Property> propertyList;
 
 	private RecyclerView propertyListRecyclerView;
@@ -34,7 +37,7 @@ public class PropertyListActivity extends AppCompatActivity {
 		Type type = Types.newParameterizedType(List.class, Property.class);
 		JsonAdapter<List<Property>> adapter = moshi.adapter(type);
 
-		String jsonPropertyListString = getIntent().getStringExtra("json_property_list");
+		jsonPropertyListString = getIntent().getStringExtra("json_property_list");
 
 		try {
 			propertyList = adapter.fromJson(jsonPropertyListString);
@@ -45,34 +48,12 @@ public class PropertyListActivity extends AppCompatActivity {
 		updateUI();
 	}
 
-	public void viewItem(View view) {
-		int pos = propertyListRecyclerView.getChildLayoutPosition(view);
-		Property property = propertyList.get(pos);
+	public void viewItem(View view) throws JSONException {
+		int itemPos = propertyListRecyclerView.getChildLayoutPosition(view);
+		String jsonPropertyString = new JSONArray(jsonPropertyListString).get(itemPos).toString();
 
 		Intent intent = new Intent(this, PropertyActivity.class);
-
-		intent.putExtra("property_id", property.getId());
-		intent.putExtra("property_title", property.getTitre());
-		intent.putExtra("property_desc", property.getDescription());
-		intent.putExtra("property_nbRooms", property.getNbPieces());
-
-		List<String> features = new ArrayList<>(property.getCaracteristiques());
-		intent.putExtra("property_features", (ArrayList<String>) features);
-
-		intent.putExtra("property_price", property.getPrix());
-		intent.putExtra("property_city", property.getVille());
-		intent.putExtra("property_zipCode", property.getCodePostal());
-
-		intent.putExtra("property_sellerId", property.getVendeur().getId());
-		intent.putExtra("property_sellerSurname", property.getVendeur().getPrenom());
-		intent.putExtra("property_sellerName", property.getVendeur().getNom());
-		intent.putExtra("property_sellerEmail", property.getVendeur().getEmail());
-		intent.putExtra("property_sellerNumber", property.getVendeur().getTelephone());
-
-		List<String> images = new ArrayList<>(property.getImages());
-		intent.putExtra("property_images", (ArrayList<String>) images);
-
-		intent.putExtra("property_publicationDate", property.getDate());
+		intent.putExtra("json_property", jsonPropertyString);
 
 		startActivity(intent);
 	}
