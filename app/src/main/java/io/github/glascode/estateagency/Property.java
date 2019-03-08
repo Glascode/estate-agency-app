@@ -50,7 +50,7 @@ public class Property {
 		this.codePostal = codePostal;
 		this.vendeur = vendeur;
 		this.images = images;
-		this.date = date;
+		this.date = date * 1000;
 	}
 
 	public String getId() {

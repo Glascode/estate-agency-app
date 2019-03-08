@@ -15,13 +15,21 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import com.squareup.moshi.Types;
+import okhttp3.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
+
+	private String jsonString;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
 	}
 
 	public void launchPropertyActivity(View view) {
@@ -29,36 +37,38 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void launchPropertiesActivity(View view) {
-		startActivity(new Intent(this, PropertyListActivity.class));
+		Intent intent = new Intent(this, PropertyListActivity.class);
+		intent.putExtra();
+		startActivity(intent);
 	}
 
-	public List<Property> makePropertiesFromJson(String jsonResponse) {
+	private void makeRequest(String url) {
+		OkHttpClient client = new OkHttpClient();
 
-		// Create adapter
-		Moshi moshi = new Moshi.Builder().build();
+		Request request = new Request.Builder().url(url).build();
 
-		Type type = Types.newParameterizedType(List.class, Property.class);
-		JsonAdapter<List<Property>> adapter = moshi.adapter(type);
-
-		try {
-			Log.d("Execution", "List<Property> response = adapter.fromJson(jsonResponse);");
-
-			List<Property> properties = adapter.fromJson(jsonResponse);
-
-			Log.d("Execution", "Executed!");
-			Log.d("Size", properties.size() + " size");
-			System.out.println("Size: " + properties.size());
-
-			for (int i = 0; i < properties.size(); i++) {
-				Log.d("Property", properties.get(i).toString());
+		client.newCall(request).enqueue(new Callback() {
+			@Override
+			public void onFailure(Call call, IOException e) {
+				e.printStackTrace();
 			}
 
-			return properties;
-		} catch (IOException e) {
-			Log.i("JML", "Error I/O");
-		}
+			@Override
+			public void onResponse(Call call, Response response) throws IOException {
+				try {
+					ResponseBody responseBody = response.body();
 
-		return null;
+					JSONObject jsonObject = new JSONObject(responseBody.string());
+					JSONArray jsonArray = new JSONArray(jsonObject.getString("response"));
+
+					jsonString = jsonArray.toString();
+					Log.d("JSON", jsonArray.toString());
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 }

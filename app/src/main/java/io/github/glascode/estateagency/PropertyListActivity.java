@@ -23,6 +23,7 @@ import java.util.List;
 
 public class PropertyListActivity extends AppCompatActivity {
 
+	private Property property;
 	private List<Property> propertyList;
 
 	private RecyclerView propertyListRecyclerView;
@@ -35,7 +36,17 @@ public class PropertyListActivity extends AppCompatActivity {
 		propertyListRecyclerView = findViewById(R.id.layout_property_list_view);
 		propertyListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
+		Moshi moshi = new Moshi.Builder().build();
+		JsonAdapter<Property> adapter = moshi.adapter(Property.class);
+
+		String jsonPropertyListString = getIntent().getStringExtra("json_property_list");
+
+		try {
+			property = adapter.fromJson(jsonPropertyListString);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public void viewItem(View view) {

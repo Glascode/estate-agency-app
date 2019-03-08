@@ -131,14 +131,4 @@ public class PropertyActivity extends AppCompatActivity {
 		});
 	}
 
-	public static class PropertyResponse {
-
-		public Property response;
-
-		public Property getResponse() {
-			return response;
-		}
-
-	}
-
 }
