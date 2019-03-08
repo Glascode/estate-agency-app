@@ -1,10 +1,12 @@
 package io.github.glascode.estateagency;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.squareup.moshi.JsonAdapter;
@@ -32,8 +34,12 @@ public class PropertyListActivity extends AppCompatActivity {
 	}
 
 	public void viewItem(View v) {
-		TextView clicked = (TextView) v;
-		Toast.makeText(this, "Click sur item" + clicked.getText().toString(), Toast.LENGTH_SHORT).show();
+		String propertyID = ((TextView) v.findViewById(R.id.text_property_item_id)).getText().toString();
+
+		Intent intent = new Intent(this, PropertyActivity.class);
+		intent.putExtra("property_id", propertyID);
+
+		startActivity(intent);
 	}
 
 	private void updateUI() {

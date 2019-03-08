@@ -40,7 +40,14 @@ public class PropertyActivity extends AppCompatActivity {
 		propertySellerMailText = findViewById(R.id.text_property_seller_mail);
 		propertySellerNumberText = findViewById(R.id.text_property_seller_number);
 
-		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/immobilier.json");
+		String id;
+
+		Bundle extras = getIntent().getExtras();
+
+		if (extras != null)
+			id = extras.getString("property_id");
+		else
+			makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/immobilier.json");
 	}
 
 	private void updateUI() {
