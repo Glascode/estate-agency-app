@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void launchPropertyActivity(View view) {
+		// TODO: Pick random element from the JSONArray
 		startActivity(new Intent(this, PropertyActivity.class));
 	}
 
