@@ -1,14 +1,11 @@
 package io.github.glascode.estateagency;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import okhttp3.*;
@@ -35,38 +32,33 @@ public class PropertyListActivity extends AppCompatActivity {
 	}
 
 	public void viewItem(View v) {
-		String propertyID = ((TextView) v.findViewById(R.id.text_property_item_id)).getText().toString();
+		int index = propertyListRecyclerView.getChildLayoutPosition(v);
+		Property property = propertyList.get(index);
 
 		Intent intent = new Intent(this, PropertyActivity.class);
 
-		for (Property property : propertyList) {
-			if (property.getId().equals(propertyID)) {
-				intent.putExtra("property_id", property.getId());
-				intent.putExtra("property_title", property.getTitre());
-				intent.putExtra("property_desc", property.getDescription());
-				intent.putExtra("property_nbRooms", property.getNbPieces());
+		intent.putExtra("property_id", property.getId());
+		intent.putExtra("property_title", property.getTitre());
+		intent.putExtra("property_desc", property.getDescription());
+		intent.putExtra("property_nbRooms", property.getNbPieces());
 
-				List<String> features = new ArrayList<>();
-				features.addAll(property.getCaracteristiques());
-				intent.putExtra("property_features", (ArrayList<String>) features);
+		ArrayList<String> features = new ArrayList<>(property.getCaracteristiques());
+		intent.putExtra("property_features", features);
 
-				intent.putExtra("property_price", property.getPrix());
-				intent.putExtra("property_city", property.getVille());
-				intent.putExtra("property_zipCode", property.getCodePostal());
+		intent.putExtra("property_price", property.getPrix());
+		intent.putExtra("property_city", property.getVille());
+		intent.putExtra("property_zipCode", property.getCodePostal());
 
-				intent.putExtra("property_sellerId", property.getVendeur().getId());
-				intent.putExtra("property_sellerSurname", property.getVendeur().getPrenom());
-				intent.putExtra("property_sellerName", property.getVendeur().getNom());
-				intent.putExtra("property_sellerEmail", property.getVendeur().getEmail());
-				intent.putExtra("property_sellerNumber", property.getVendeur().getTelephone());
+		intent.putExtra("property_sellerId", property.getVendeur().getId());
+		intent.putExtra("property_sellerSurname", property.getVendeur().getPrenom());
+		intent.putExtra("property_sellerName", property.getVendeur().getNom());
+		intent.putExtra("property_sellerEmail", property.getVendeur().getEmail());
+		intent.putExtra("property_sellerNumber", property.getVendeur().getTelephone());
 
-				List<String> images = new ArrayList<>();
-				images.addAll(property.getImages());
-				intent.putExtra("property_images", (ArrayList<String>) images);
+		ArrayList<String> images = new ArrayList<>(property.getImages());
+		intent.putExtra("property_images", images);
 
-				intent.putExtra("property_publicationDate", property.getDate());
-			}
-		}
+		intent.putExtra("property_publicationDate", property.getDate());
 
 		startActivity(intent);
 	}

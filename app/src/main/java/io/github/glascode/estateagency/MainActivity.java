@@ -1,27 +1,26 @@
 package io.github.glascode.estateagency;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
-import android.util.Log;
-
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import okhttp3.*;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 
-import com.squareup.moshi.Types;
-
 public class MainActivity extends AppCompatActivity {
+
+	private List<Property> propertyList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
 	}
 
 	public void launchPropertyActivity(View view) {
@@ -32,33 +31,46 @@ public class MainActivity extends AppCompatActivity {
 		startActivity(new Intent(this, PropertyListActivity.class));
 	}
 
-	public List<Property> makePropertiesFromJson(String jsonResponse) {
+	private void makeRequest(String url) {
+		OkHttpClient client = new OkHttpClient();
 
-		// Create adapter
-		Moshi moshi = new Moshi.Builder().build();
+		Request request = new Request.Builder().url(url).build();
 
-		Type type = Types.newParameterizedType(List.class, Property.class);
-		JsonAdapter<List<Property>> adapter = moshi.adapter(type);
-
-		try {
-			Log.d("Execution", "List<Property> response = adapter.fromJson(jsonResponse);");
-
-			List<Property> properties = adapter.fromJson(jsonResponse);
-
-			Log.d("Execution", "Executed!");
-			Log.d("Size", properties.size() + " size");
-			System.out.println("Size: " + properties.size());
-
-			for (int i = 0; i < properties.size(); i++) {
-				Log.d("Property", properties.get(i).toString());
+		client.newCall(request).enqueue(new Callback() {
+			@Override
+			public void onFailure(Call call, IOException e) {
+				e.printStackTrace();
 			}
 
-			return properties;
-		} catch (IOException e) {
-			Log.i("JML", "Error I/O");
+			@Override
+			public void onResponse(Call call, Response response) throws IOException {
+				try (ResponseBody responseBody = response.body()) {
+					if (!response.isSuccessful())
+						throw new IOException("Unexpected HTTP code " + response);
+
+					Moshi moshi = new Moshi.Builder().build();
+
+					JsonAdapter<PropertiesResponse> adapter = moshi.adapter(PropertiesResponse.class);
+
+					PropertiesResponse propertiesResponse = adapter.fromJson(responseBody.string());
+
+					propertyList = propertiesResponse.getResponse();
+
+					for (Property property : propertyList)
+						property.setDate(property.getDate() * 1000);
+				}
+			}
+		});
+	}
+
+	public static class PropertiesResponse {
+
+		public List<Property> response;
+
+		public List<Property> getResponse() {
+			return response;
 		}
 
-		return null;
 	}
 
 }

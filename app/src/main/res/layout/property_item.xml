@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:onClick="viewItem">
@@ -10,13 +9,15 @@
 		android:id="@+id/image_property_item"
 		android:layout_width="100dp"
 		android:layout_height="0dp"
-		android:layout_marginStart="8dp"
-		android:layout_marginTop="8dp"
-		android:layout_marginBottom="8dp"
+		android:layout_marginStart="16dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginBottom="16dp"
 		android:contentDescription="@string/msg_property_image_desc"
+		android:scaleType="centerCrop"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintVertical_bias="0.0" />
 
 	<TextView
 		android:id="@+id/text_property_item_id"
@@ -31,14 +32,14 @@
 
 	<TextView
 		android:id="@+id/text_property_item_title"
-		android:layout_width="257dp"
-		android:layout_height="0dp"
-		android:layout_marginStart="16dp"
-		android:layout_marginTop="8dp"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="16dp"
 		android:layout_marginEnd="8dp"
 		android:text="TextView"
 		android:textAppearance="@style/TextAppearance.AppCompat.Title"
-		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/btn_save"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toEndOf="@+id/image_property_item"
 		app:layout_constraintTop_toTopOf="parent" />
@@ -47,13 +48,13 @@
 		android:id="@+id/text_property_item_price"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
+		android:layout_marginStart="8dp"
 		android:layout_marginTop="4dp"
 		android:layout_marginEnd="8dp"
 		android:text="TextView"
 		android:textColor="@color/colorAccent"
 		android:textSize="18sp"
-		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/btn_save"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toEndOf="@+id/image_property_item"
 		app:layout_constraintTop_toBottomOf="@+id/text_property_item_title" />
@@ -62,10 +63,10 @@
 		android:id="@+id/text_property_item_location"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
+		android:layout_marginStart="8dp"
 		android:layout_marginEnd="8dp"
 		android:text="TextView"
-		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/btn_save"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toEndOf="@+id/image_property_item"
 		app:layout_constraintTop_toBottomOf="@+id/text_property_item_price" />
@@ -74,16 +75,30 @@
 		android:id="@+id/text_property_item_publication_date"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="16dp"
+		android:layout_marginStart="8dp"
 		android:layout_marginEnd="8dp"
-		android:layout_marginBottom="8dp"
+		android:layout_marginBottom="16dp"
 		android:text="TextView"
 		android:textAppearance="@style/TextAppearance.AppCompat.Small"
 		android:textSize="12sp"
 		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/btn_save"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toEndOf="@+id/image_property_item"
 		app:layout_constraintTop_toBottomOf="@+id/text_property_item_location" />
+
+	<ImageButton
+		android:id="@+id/btn_save"
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginEnd="16dp"
+		android:layout_marginBottom="16dp"
+		android:background="@android:color/transparent"
+		android:contentDescription="@string/msg_property_saveIcon_desc"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/ic_favorite_border_black_24dp" />
 
 </android.support.constraint.ConstraintLayout>
