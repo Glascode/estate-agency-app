@@ -5,18 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-import okhttp3.*;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -25,7 +17,6 @@ import java.util.List;
 
 public class PropertyListActivity extends AppCompatActivity {
 
-	private Property property;
 	private List<Property> propertyList;
 
 	private RecyclerView propertyListRecyclerView;
@@ -41,7 +32,7 @@ public class PropertyListActivity extends AppCompatActivity {
 		Moshi moshi = new Moshi.Builder().build();
 
 		Type type = Types.newParameterizedType(List.class, Property.class);
-		JsonAdapter<List> adapter = moshi.adapter(type);
+		JsonAdapter<List<Property>> adapter = moshi.adapter(type);
 
 		String jsonPropertyListString = getIntent().getStringExtra("json_property_list");
 
