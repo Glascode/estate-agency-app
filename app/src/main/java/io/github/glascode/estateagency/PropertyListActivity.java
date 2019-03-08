@@ -12,6 +12,9 @@ import android.widget.Toast;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import okhttp3.*;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,42 +86,18 @@ public class PropertyListActivity extends AppCompatActivity {
 
 			@Override
 			public void onResponse(Call call, Response response) throws IOException {
-				try (ResponseBody responseBody = response.body()) {
-					if (!response.isSuccessful()) {
-						throw new IOException("Unexpected HTTP code " + response);
-					}
+				try {
+					ResponseBody responseBody = response.body();
 
-					Moshi moshi = new Moshi.Builder().build();
+					JSONObject jsonObject = new JSONObject(responseBody.string());
+					jsonObject = new JSONArray(jsonObject.getString("response")).getJSONObject(1);
 
-					JsonAdapter<PropertiesResponse> adapter = moshi.adapter(PropertiesResponse.class);
+					String jsonString = jsonObject.toString();
 
-					PropertiesResponse propertiesResponse = adapter.fromJson(responseBody.string());
-					propertyList = propertiesResponse.getResponse();
-
-					for (Property property : propertyList) {
-						property.setDate(property.getDate() * 1000);
-					}
-
-					// Update UI
-					runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							updateUI();
-						}
-					});
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
 			}
 		});
 	}
-
-	public static class PropertiesResponse {
-
-		public List<Property> response;
-
-		public List<Property> getResponse() {
-			return response;
-		}
-
-	}
-
 }
