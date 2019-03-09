@@ -1,24 +1,21 @@
 package io.github.glascode.estateagency;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import com.squareup.moshi.Types;
-import okhttp3.*;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.List;
 
 public class PropertyActivity extends AppCompatActivity {
 
 	private Property property;
 
-	private ImageView propertyImageView;
+	private ViewPager viewPager;
+
 	private TextView propertyTitleText;
 	private TextView propertyPriceText;
 	private TextView propertyLocationText;
@@ -33,7 +30,7 @@ public class PropertyActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_property);
 
-		propertyImageView = findViewById(R.id.image_property);
+		viewPager = findViewById(R.id.viewPager_property_slider);
 		propertyTitleText = findViewById(R.id.text_property_title);
 		propertyPriceText = findViewById(R.id.text_property_price);
 		propertyLocationText = findViewById(R.id.text_property_location);
@@ -58,7 +55,7 @@ public class PropertyActivity extends AppCompatActivity {
 	}
 
 	private void updateUI() {
-		new DownloadImageTask(propertyImageView).execute(property.getImages().get(0));
+		viewPager.setAdapter(new ViewPagerAdapter(this, property.getImages()));
 
 		String propertyTitle = property.getTitre();
 		int propertyPrice = property.getPrix();

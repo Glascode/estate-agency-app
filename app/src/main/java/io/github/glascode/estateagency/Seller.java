@@ -4,11 +4,11 @@ import android.support.annotation.NonNull;
 
 public class Seller {
 
-	private String id;
-	private String nom;
-	private String prenom;
-	private String email;
-	private String telephone;
+	private final String id;
+	private final String nom;
+	private final String prenom;
+	private final String email;
+	private final String telephone;
 
 	/**
 	 * Constructs a new {@code Seller}.

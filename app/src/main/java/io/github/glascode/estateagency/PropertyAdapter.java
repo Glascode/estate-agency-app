@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-public class PropertyAdapter extends RecyclerView.Adapter<PropertyViewHolder> {
+class PropertyAdapter extends RecyclerView.Adapter<PropertyViewHolder> {
 
-	private List<Property> propertyList;
+	private final List<Property> propertyList;
 
 	PropertyAdapter(List<Property> propertyList) {
 		this.propertyList = propertyList;

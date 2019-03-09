@@ -4,19 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-
-import java.io.IOException;
-import java.util.Random;
-
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -106,20 +105,24 @@ public class MainActivity extends AppCompatActivity {
 		// TODO: the Callback is never called!
 		client.newCall(request).enqueue(new Callback() {
 			@Override
-			public void onFailure(Call call, IOException e) {
+			public void onFailure(@NonNull Call call, @NonNull IOException e) {
 				e.printStackTrace();
 			}
 
 			@Override
-			public void onResponse(Call call, Response response) throws IOException {
+			public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
 
 				try (ResponseBody responseBody = response.body()) {
 					if (!response.isSuccessful()) {
 						throw new IOException("Unexpected code " + response);
 					}
 
-					JSONObject jsonObject = new JSONObject(responseBody.string());
-					jsonPropertyListArray = new JSONArray(jsonObject.getString("response"));
+					JSONObject jsonObject;
+
+					if (responseBody != null) {
+						jsonObject = new JSONObject(responseBody.string());
+						jsonPropertyListArray = new JSONArray(jsonObject.getString("response"));
+					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
