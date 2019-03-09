@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.widget.TextView;
+import com.rd.PageIndicatorView;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 
@@ -44,6 +45,25 @@ public class PropertyActivity extends AppCompatActivity {
 		JsonAdapter<Property> adapter = moshi.adapter(Property.class);
 
 		String jsonPropertyString = getIntent().getStringExtra("json_property");
+
+		final PageIndicatorView pageIndicatorView = findViewById(R.id.pageIndicatorView_property_slider);
+
+		viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+			}
+
+			@Override
+			public void onPageSelected(int position) {
+				pageIndicatorView.setSelection(position);
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int state) {
+
+			}
+		});
 
 		try {
 			property = adapter.fromJson(jsonPropertyString);
