@@ -41,7 +41,8 @@
 					app:layout_constraintStart_toStartOf="parent"
 					android:layout_marginStart="8dp"
 					app:piv_padding="12dp"
-					app:piv_radius="6dp"/>
+					app:piv_radius="6dp"
+					app:piv_animationType="worm"/>
 
 			<TextView
 					android:id="@+id/text_property_title"
