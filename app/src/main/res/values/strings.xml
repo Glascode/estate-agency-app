@@ -9,9 +9,11 @@
 	<string name="msg_property_image_desc">Image of the property</string>
 	<string name="msg_property_price">%d €</string>
 	<string name="msg_property_location">%s</string>
+	<string name="msg_property_descriptionTitle">Description</string>
 	<string name="msg_property_description">%s</string>
 	<string name="msg_property_publication_date">Published the %s</string>
 	<string name="msg_property_seller_name">%s</string>
 	<string name="msg_property_seller_mail">%s</string>
 	<string name="msg_property_seller_number">%s</string>
+	<string name="msg_property_saveIcon_desc">IconButton to save a property</string>
 </resources>
