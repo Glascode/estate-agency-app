@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
 		Request request = new Request.Builder().url(url).build();
 
-		// TODO: the Callback is never called!
 		client.newCall(request).enqueue(new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
