@@ -4,19 +4,19 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+class Property {
 
-public class Property {
+	private final List<String> caracteristiques;
+	private final List<String> images;
 
 	private String id;
 	private String titre;
 	private String description;
 	private int nbPieces;
-	private List<String> caracteristiques;
 	private int prix;
 	private String ville;
 	private String codePostal;
 	private Seller vendeur;
-	private List<String> images;
 	private long date;
 
 	/**
