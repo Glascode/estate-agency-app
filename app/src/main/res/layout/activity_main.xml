@@ -20,7 +20,7 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent">
 
-		<Button
+		<android.support.design.button.MaterialButton
 			android:id="@+id/btn_random_property"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -28,14 +28,14 @@
 			android:onClick="launchPropertyActivity"
 			android:text="@string/action_random_property" />
 
-		<Button
+		<android.support.design.button.MaterialButton
 			android:id="@+id/btn_propose_property"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginBottom="8dp"
 			android:text="@string/action_propose_property" />
 
-		<Button
+		<android.support.design.button.MaterialButton
 			android:id="@+id/btn_list_properties"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
 			android:onClick="launchPropertyListActivity"
 			android:text="@string/action_properties_list" />
 
-		<Button
+		<android.support.design.button.MaterialButton
 			android:id="@+id/btn_profile"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
