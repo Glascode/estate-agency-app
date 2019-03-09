@@ -1,8 +1,13 @@
 package io.github.glascode.estateagency;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import java.io.IOException;
@@ -22,24 +27,75 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
+		if (checkConnectivity(this)) {
+			makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
+		}
 	}
 
 	public void launchPropertyActivity(View view) throws JSONException {
-		Random rand = new Random();
-		int randomPos = rand.nextInt(jsonPropertyListArray.length());
-		String jsonPropertyString = jsonPropertyListArray.get(randomPos).toString();
+		try {
+			Random rand = new Random();
+			int randomPos = rand.nextInt(jsonPropertyListArray.length());
+			String jsonPropertyString = jsonPropertyListArray.get(randomPos).toString();
 
-		Intent intent = new Intent(this, PropertyActivity.class);
-		intent.putExtra("json_property", jsonPropertyString);
+			Intent intent = new Intent(this, PropertyActivity.class);
+			intent.putExtra("json_property", jsonPropertyString);
 
-		startActivity(intent);
+			startActivity(intent);
+		} catch (NullPointerException e) {
+			Snackbar.make(
+					findViewById(R.id.layout_main),
+					"Unable to retrieve a property",
+					Snackbar.LENGTH_LONG
+			).show();
+		}
 	}
 
 	public void launchPropertyListActivity(View view) {
-		Intent intent = new Intent(this, PropertyListActivity.class);
-		intent.putExtra("json_property_list", jsonPropertyListArray.toString());
-		startActivity(intent);
+		try {
+			Intent intent = new Intent(this, PropertyListActivity.class);
+			intent.putExtra("json_property_list", jsonPropertyListArray.toString());
+
+			startActivity(intent);
+		} catch (NullPointerException e) {
+			Snackbar.make(
+					findViewById(R.id.layout_main),
+					"Unable to retrieve the list of properties",
+					Snackbar.LENGTH_LONG
+			).show();
+		}
+	}
+
+	private boolean checkConnectivity(Context context) {
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+		if (activeNetwork != null && activeNetwork.isConnected()) {
+
+			/* Connected to Internet */
+			if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+
+				/* Connected to Wi-Fi */
+				Snackbar.make(
+						findViewById(R.id.layout_main),
+						"Connected to Wi-Fi",
+						Snackbar.LENGTH_LONG
+				).show();
+			} else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+
+				/* Connected to the mobile provider's data plan */
+				Snackbar.make(
+						findViewById(R.id.layout_main),
+						"Connected to Data",
+						Snackbar.LENGTH_LONG
+				).show();
+			}
+			return true;
+		}
+
+		/* Not connected */
+		Snackbar.make(findViewById(R.id.layout_main), "Not connected", Snackbar.LENGTH_LONG).show();
+		return false;
 	}
 
 	private void makeRequest(String url) {
@@ -47,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
 		Request request = new Request.Builder().url(url).build();
 
+		// TODO: the Callback is never called!
 		client.newCall(request).enqueue(new Callback() {
 			@Override
 			public void onFailure(Call call, IOException e) {
@@ -55,12 +112,14 @@ public class MainActivity extends AppCompatActivity {
 
 			@Override
 			public void onResponse(Call call, Response response) throws IOException {
-				try {
-					ResponseBody responseBody = response.body();
+
+				try (ResponseBody responseBody = response.body()) {
+					if (!response.isSuccessful()) {
+						throw new IOException("Unexpected code " + response);
+					}
 
 					JSONObject jsonObject = new JSONObject(responseBody.string());
 					jsonPropertyListArray = new JSONArray(jsonObject.getString("response"));
-
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
