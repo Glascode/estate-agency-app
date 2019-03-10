@@ -134,7 +134,7 @@ class Property {
 	}
 
 	public long getDate() {
-		return date * 1000;
+		return date;
 	}
 
 	public void setDate(long date) {
