@@ -1,9 +1,13 @@
 package io.github.glascode.estateagency;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import androidx.appcompat.app.AppCompatActivity;
+import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.moshi.JsonAdapter;
@@ -16,32 +20,37 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Objects;
 
-public class PropertyListActivity extends AppCompatActivity {
+public class PropertyListFragment extends Fragment {
 
 	private String jsonPropertyList;
 	private List<Property> propertyList;
 
 	private RecyclerView propertyListRecyclerView;
 
+	@Nullable
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_property_list, container, false);
 
-		Objects.requireNonNull(getSupportActionBar()).hide();
+		propertyListRecyclerView = view.findViewById(R.id.fragment_property_list_view);
+		propertyListRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-		setContentView(R.layout.activity_property_list);
+		return view;
+	}
 
-		propertyListRecyclerView = findViewById(R.id.layout_property_list_view);
-		propertyListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+	@Override
+	public void onAttach(@NonNull Context context) {
+		super.onAttach(context);
+	}
 
+	public void generatePropertyList(String jsonString) {
 		Moshi moshi = new Moshi.Builder().build();
 
 		Type type = Types.newParameterizedType(List.class, Property.class);
 		JsonAdapter<List<Property>> adapter = moshi.adapter(type);
 
-		jsonPropertyList = getIntent().getStringExtra("json_property_list");
+		jsonPropertyList = jsonString;
 
 		try {
 			propertyList = adapter.fromJson(jsonPropertyList);
@@ -49,21 +58,18 @@ public class PropertyListActivity extends AppCompatActivity {
 			e.printStackTrace();
 		}
 
+		while (propertyListRecyclerView == null)
+			System.out.println("Waiting...");
+
 		updateUI();
 	}
 
 	public void viewItem(View view) throws JSONException {
 		int itemPos = propertyListRecyclerView.getChildLayoutPosition(view);
 		String jsonPropertyString = new JSONArray(jsonPropertyList).get(itemPos).toString();
-
-		Intent intent = new Intent(this, PropertyActivity.class);
-		intent.putExtra("json_property", jsonPropertyString);
-
-		startActivity(intent);
 	}
 
 	private void updateUI() {
 		propertyListRecyclerView.setAdapter(new PropertyAdapter(propertyList));
 	}
-
 }

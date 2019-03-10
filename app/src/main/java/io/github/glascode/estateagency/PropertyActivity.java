@@ -1,12 +1,16 @@
 package io.github.glascode.estateagency;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 import com.rd.PageIndicatorView;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
@@ -101,8 +105,17 @@ public class PropertyActivity extends AppCompatActivity {
 		updateUI();
 	}
 
+	public void launchSellerCall(View view) {
+		Intent intent = new Intent(Intent.ACTION_DIAL);
+		intent.setData(Uri.parse("tel:" + property.getVendeur().getTelephone()));
+		startActivity(intent);
+	}
+
 	private void updateUI() {
-		propertyViewPagerSlider.setAdapter(new ViewPagerAdapter(this, property.getImages()));
+		if (!property.getImages().isEmpty())
+			propertyViewPagerSlider.setAdapter(new ViewPagerAdapter(this, property.getImages()));
+		else
+			((ViewGroup) propertyViewPagerSlider.getParent()).removeView(propertyViewPagerSlider);
 
 		String propertyTitle = property.getTitre();
 		int propertyPrice = property.getPrix();

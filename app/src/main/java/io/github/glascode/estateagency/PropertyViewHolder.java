@@ -1,14 +1,14 @@
 package io.github.glascode.estateagency;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import io.github.glascode.estateagency.database.GetPropertyTask;
 import io.github.glascode.estateagency.database.InsertPropertyTask;

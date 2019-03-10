@@ -1,9 +1,9 @@
 package io.github.glascode.estateagency.model;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 import io.github.glascode.estateagency.ListStringConverter;
 import io.github.glascode.estateagency.SellerConverter;
 

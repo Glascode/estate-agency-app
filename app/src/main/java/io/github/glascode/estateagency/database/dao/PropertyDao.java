@@ -1,6 +1,6 @@
 package io.github.glascode.estateagency.database.dao;
 
-import android.arch.persistence.room.*;
+import androidx.room.*;
 import io.github.glascode.estateagency.model.Property;
 
 import java.util.List;

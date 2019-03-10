@@ -19,4 +19,13 @@
 	</string>
 	<string name="call">Call</string>
 	<string name="mail">Mail</string>
+
+	<string name="action_favorite">Favoris</string>
+	<string name="action_search">Search</string>
+
+	<string name="nav_item1">Navigation item 1</string>
+	<string name="nav_item2">Navigation item 2</string>
+	<string name="nav_item3">Navigation item 3</string>
+
+	<string name="fab_add_property">Add a new property</string>
 </resources>
