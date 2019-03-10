@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 
 		if (checkConnectivity(this)) {
+
+			/* Get properties list from the API */
 			makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
 		}
 	}

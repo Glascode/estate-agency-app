@@ -25,17 +25,17 @@ class Property {
 	 * Note: the attributes of the Property had to be written in french because
 	 * of the attributes of the JSON response it depends on.
 	 *
-	 * @param id the id of the Property
-	 * @param titre the title of the Property
-	 * @param description the description of the Property
-	 * @param nbPieces the number of rooms of the Property
+	 * @param id               the id of the Property
+	 * @param titre            the title of the Property
+	 * @param description      the description of the Property
+	 * @param nbPieces         the number of rooms of the Property
 	 * @param caracteristiques the features of the Property
-	 * @param prix the price of the Property
-	 * @param ville the location city of the Property
-	 * @param codePostal the zip code of the Property
-	 * @param vendeur the Seller of the Property
-	 * @param images the images of the Property
-	 * @param date the publication date of the Property
+	 * @param prix             the price of the Property
+	 * @param ville            the location city of the Property
+	 * @param codePostal       the zip code of the Property
+	 * @param vendeur          the Seller of the Property
+	 * @param images           the images of the Property
+	 * @param date             the publication date of the Property
 	 */
 	public Property(String id, String titre, String description, int nbPieces,
 					List<String> caracteristiques, int prix, String ville, String codePostal,
@@ -50,7 +50,7 @@ class Property {
 		this.codePostal = codePostal;
 		this.vendeur = vendeur;
 		this.images = images;
-		this.date = date * 1000;
+		this.date = date;
 	}
 
 	public String getId() {
@@ -134,7 +134,7 @@ class Property {
 	}
 
 	public long getDate() {
-		return date;
+		return date * 1000;
 	}
 
 	public void setDate(long date) {
