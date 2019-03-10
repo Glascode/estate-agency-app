@@ -2,6 +2,7 @@ package io.github.glascode.estateagency;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -165,6 +166,21 @@ public class MainActivity extends AppCompatActivity {
 				}
 			}
 		});
+	}
+
+	private boolean checkUser() {
+		SharedPreferences profilePreferences = getSharedPreferences("profile", MODE_PRIVATE);
+		String restoredPreferences = profilePreferences.getString("fullname", null);
+
+		return restoredPreferences != null;
+	}
+
+	private void addUser() {
+		SharedPreferences profilePreferences = getSharedPreferences("profile", MODE_PRIVATE);
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("fullname", "John Doe");
+		editor.putString("email", "john.doe@gmail.com");
+		editor.apply();
 	}
 
 }
