@@ -36,6 +36,23 @@ public class PropertyListFragment extends Fragment {
 		propertyListRecyclerView = view.findViewById(R.id.fragment_property_list_view);
 		propertyListRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+		Moshi moshi = new Moshi.Builder().build();
+
+		Type type = Types.newParameterizedType(List.class, Property.class);
+		JsonAdapter<List<Property>> adapter = moshi.adapter(type);
+
+		if (getArguments() != null) {
+			jsonPropertyList = getArguments().getString("json_property_list");
+		}
+
+		try {
+			if (jsonPropertyList != null) {
+				propertyList = adapter.fromJson(jsonPropertyList);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		return view;
 	}
 
@@ -44,32 +61,12 @@ public class PropertyListFragment extends Fragment {
 		super.onAttach(context);
 	}
 
-	public void generatePropertyList(String jsonString) {
-		Moshi moshi = new Moshi.Builder().build();
-
-		Type type = Types.newParameterizedType(List.class, Property.class);
-		JsonAdapter<List<Property>> adapter = moshi.adapter(type);
-
-		jsonPropertyList = jsonString;
-
-		try {
-			propertyList = adapter.fromJson(jsonPropertyList);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		while (propertyListRecyclerView == null)
-			System.out.println("Waiting...");
-
-		updateUI();
-	}
-
 	public void viewItem(View view) throws JSONException {
 		int itemPos = propertyListRecyclerView.getChildLayoutPosition(view);
 		String jsonPropertyString = new JSONArray(jsonPropertyList).get(itemPos).toString();
 	}
 
-	private void updateUI() {
+	public void updateUI() {
 		propertyListRecyclerView.setAdapter(new PropertyAdapter(propertyList));
 	}
 }

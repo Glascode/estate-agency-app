@@ -1,28 +1,23 @@
 package io.github.glascode.estateagency;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomappbar.BottomAppBar;
-import okhttp3.*;
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+	private final String API_URL = "https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json";
 	private JSONArray jsonPropertyListArray;
 	private Menu menu;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_main);
 
 		BottomAppBar bottomAppBar = findViewById(R.id.bottom_app_bar);
@@ -36,15 +31,23 @@ public class MainActivity extends AppCompatActivity {
 			}
 		});
 
-		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
-
-		while (jsonPropertyListArray == null){
-			System.out.println("waiting...");
+		try {
+			jsonPropertyListArray = new HttpRequestTask().execute(API_URL).get();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-		PropertyListFragment propertyListFragment = new PropertyListFragment();
-		getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, propertyListFragment).commit();
-		propertyListFragment.generatePropertyList(jsonPropertyListArray.toString());
+		if (jsonPropertyListArray != null) {
+			Log.d("JSON Response", jsonPropertyListArray.toString());
+			PropertyListFragment propertyListFragment = new PropertyListFragment();
+			Bundle bundle = new Bundle();
+			bundle.putString("json_property_list", jsonPropertyListArray.toString());
+			propertyListFragment.setArguments(bundle);
+			getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, propertyListFragment).commit();
+			propertyListFragment.updateUI();
+		} else {
+			Log.d("PropertyList", "NULL");
+		}
 	}
 
 	@Override
@@ -57,35 +60,4 @@ public class MainActivity extends AppCompatActivity {
 		return true;
 	}
 
-	private void makeRequest(String url) {
-		OkHttpClient client = new OkHttpClient();
-
-		Request request = new Request.Builder().url(url).build();
-
-		client.newCall(request).enqueue(new Callback() {
-			@Override
-			public void onFailure(@NonNull Call call, @NonNull IOException e) {
-				e.printStackTrace();
-			}
-
-			@Override
-			public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-
-				try (ResponseBody responseBody = response.body()) {
-					if (!response.isSuccessful()) {
-						throw new IOException("Unexpected code " + response);
-					}
-
-					JSONObject jsonObject;
-
-					if (responseBody != null) {
-						jsonObject = new JSONObject(responseBody.string());
-						jsonPropertyListArray = new JSONArray(jsonObject.getString("response"));
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 }
