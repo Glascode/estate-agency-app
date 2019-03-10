@@ -1,22 +1,32 @@
-package io.github.glascode.estateagency;
+package io.github.glascode.estateagency.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
+import io.github.glascode.estateagency.ListStringConverter;
+import io.github.glascode.estateagency.SellerConverter;
 
 import java.util.List;
 
-class Property {
+@Entity
+public class Property {
 
+	@TypeConverters(ListStringConverter.class)
 	private final List<String> caracteristiques;
+	@TypeConverters(ListStringConverter.class)
 	private final List<String> images;
+	@TypeConverters(SellerConverter.class)
+	private Seller vendeur;
 
-	private String id;
+	@PrimaryKey
+	private @NonNull String id;
 	private String titre;
 	private String description;
 	private int nbPieces;
 	private int prix;
 	private String ville;
 	private String codePostal;
-	private Seller vendeur;
 	private long date;
 
 	/**
@@ -53,92 +63,72 @@ class Property {
 		this.date = date * 1000;
 	}
 
+	// -- GETTER --
 	public String getId() {
 		return id;
 	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getTitre() {
 		return titre;
 	}
-
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
-
 	public String getDescription() {
 		return description;
 	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public int getNbPieces() {
 		return nbPieces;
 	}
+	public List<String> getCaracteristiques() {
+		return caracteristiques;
+	}
+	public int getPrix() {
+		return prix;
+	}
+	public String getVille() {
+		return ville;
+	}
+	public String getCodePostal() {
+		return codePostal;
+	}
+	public Seller getVendeur() {
+		return vendeur;
+	}
+	public List<String> getImages() {
+		return images;
+	}
+	public long getDate() {
+		return date;
+	}
 
+	// -- SETTER --
+	public void setId(String id) {
+		this.id = id;
+	}
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+	public void setDescription(String description) { this.description = description; }
 	public void setNbPieces(int nbPieces) {
 		this.nbPieces = nbPieces;
 	}
-
-	public List<String> getCaracteristiques() {
-		return caracteristiques;
+	public void setPrix(int prix) {
+		this.prix = prix;
+	}
+	public void setVille(String ville) {
+		this.ville = ville;
+	}
+	public void setCodePostal(String codePostal) { this.codePostal = codePostal; }
+	public void setVendeur(Seller vendeur) {
+		this.vendeur = vendeur;
+	}
+	public void setDate(long date) {
+		this.date = date;
 	}
 
 	public void addFeature(String feature) {
 		caracteristiques.add(feature);
 	}
 
-	public int getPrix() {
-		return prix;
-	}
-
-	public void setPrix(int prix) {
-		this.prix = prix;
-	}
-
-	public String getVille() {
-		return ville;
-	}
-
-	public void setVille(String ville) {
-		this.ville = ville;
-	}
-
-	public String getCodePostal() {
-		return codePostal;
-	}
-
-	public void setCodePostal(String codePostal) {
-		this.codePostal = codePostal;
-	}
-
-	public Seller getVendeur() {
-		return vendeur;
-	}
-
-	public void setVendeur(Seller vendeur) {
-		this.vendeur = vendeur;
-	}
-
-	public List<String> getImages() {
-		return images;
-	}
-
 	public void addImageUrl(String imageUrl) {
 		images.add(imageUrl);
-	}
-
-	public long getDate() {
-		return date;
-	}
-
-	public void setDate(long date) {
-		this.date = date;
 	}
 
 	@NonNull

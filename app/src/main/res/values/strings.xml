@@ -15,5 +15,8 @@
 	<string name="msg_property_seller_name">%s</string>
 	<string name="msg_property_seller_mail">%s</string>
 	<string name="msg_property_seller_number">%s</string>
-	<string name="msg_property_saveIcon_desc">IconButton to save a property</string>
+	<string name="msg_property_saveIcon_desc">IconButton to save a property
+	</string>
+	<string name="call">Call</string>
+	<string name="mail">Mail</string>
 </resources>

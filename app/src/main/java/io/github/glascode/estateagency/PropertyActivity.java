@@ -4,18 +4,23 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 import com.rd.PageIndicatorView;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import io.github.glascode.estateagency.database.ActionPropertyTask;
+import io.github.glascode.estateagency.model.Property;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class PropertyActivity extends AppCompatActivity {
 
 	private Property property;
 
-	private ViewPager viewPager;
+	private ViewPager propertyViewPagerSlider;
 
 	private TextView propertyTitleText;
 	private TextView propertyPriceText;
@@ -31,7 +36,7 @@ public class PropertyActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_property);
 
-		viewPager = findViewById(R.id.viewPager_property_slider);
+		propertyViewPagerSlider = findViewById(R.id.viewPager_property_slider);
 		propertyTitleText = findViewById(R.id.text_property_title);
 		propertyPriceText = findViewById(R.id.text_property_price);
 		propertyLocationText = findViewById(R.id.text_property_location);
@@ -41,6 +46,8 @@ public class PropertyActivity extends AppCompatActivity {
 		propertySellerMailText = findViewById(R.id.text_property_seller_mail);
 		propertySellerNumberText = findViewById(R.id.text_property_seller_number);
 
+		ToggleButton propertySaveButton = findViewById(R.id.btn_save_property);
+
 		Moshi moshi = new Moshi.Builder().build();
 		JsonAdapter<Property> adapter = moshi.adapter(Property.class);
 
@@ -48,7 +55,7 @@ public class PropertyActivity extends AppCompatActivity {
 
 		final PageIndicatorView pageIndicatorView = findViewById(R.id.pageIndicatorView_property_slider);
 
-		viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+		propertyViewPagerSlider.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 			@Override
 			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -67,15 +74,29 @@ public class PropertyActivity extends AppCompatActivity {
 
 		try {
 			property = adapter.fromJson(jsonPropertyString);
-		} catch (IOException e) {
+
+			String result = new ActionPropertyTask(getApplicationContext(), property, "get").execute().get();
+			if (result != null && result.equals(property.getId()))
+				propertySaveButton.setChecked(true);
+		} catch (IOException | ExecutionException | InterruptedException e) {
 			e.printStackTrace();
 		}
+
+		propertySaveButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (isChecked)
+					new ActionPropertyTask(getApplicationContext(), property, "insert").execute();
+				else
+					new ActionPropertyTask(getApplicationContext(), property, "remove").execute();
+			}
+		});
 
 		updateUI();
 	}
 
 	private void updateUI() {
-		viewPager.setAdapter(new ViewPagerAdapter(this, property.getImages()));
+		propertyViewPagerSlider.setAdapter(new ViewPagerAdapter(this, property.getImages()));
 
 		String propertyTitle = property.getTitre();
 		int propertyPrice = property.getPrix();

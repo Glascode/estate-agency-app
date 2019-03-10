@@ -1,4 +1,4 @@
-package io.github.glascode.estateagency;
+package io.github.glascode.estateagency.model;
 
 import android.support.annotation.NonNull;
 
@@ -30,6 +30,7 @@ public class Seller {
 		this.telephone = telephone;
 	}
 
+	// -- GETTER
 	/**
 	 * Returns the id of this Seller
 	 *
@@ -38,7 +39,6 @@ public class Seller {
 	public String getId() {
 		return id;
 	}
-
 	/**
 	 * Returns the name of this Seller
 	 *
@@ -47,7 +47,6 @@ public class Seller {
 	public String getNom() {
 		return nom;
 	}
-
 	/**
 	 * Returns the surname of this Seller
 	 *
@@ -56,7 +55,6 @@ public class Seller {
 	public String getPrenom() {
 		return prenom;
 	}
-
 	/**
 	 * Returns the email address of this Seller
 	 *
@@ -65,7 +63,6 @@ public class Seller {
 	public String getEmail() {
 		return email;
 	}
-
 	/**
 	 * Returns the phone number of this Seller
 	 *

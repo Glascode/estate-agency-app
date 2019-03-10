@@ -1,14 +1,15 @@
 package io.github.glascode.estateagency;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import io.github.glascode.estateagency.model.Property;
 import org.json.JSONArray;
 import org.json.JSONException;
 
