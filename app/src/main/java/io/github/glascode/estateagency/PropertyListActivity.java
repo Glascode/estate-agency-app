@@ -19,7 +19,7 @@ import java.util.List;
 
 public class PropertyListActivity extends AppCompatActivity {
 
-	private String jsonPropertyListString;
+	private String jsonPropertyList;
 	private List<Property> propertyList;
 
 	private RecyclerView propertyListRecyclerView;
@@ -37,10 +37,10 @@ public class PropertyListActivity extends AppCompatActivity {
 		Type type = Types.newParameterizedType(List.class, Property.class);
 		JsonAdapter<List<Property>> adapter = moshi.adapter(type);
 
-		jsonPropertyListString = getIntent().getStringExtra("json_property_list");
+		jsonPropertyList = getIntent().getStringExtra("json_property_list");
 
 		try {
-			propertyList = adapter.fromJson(jsonPropertyListString);
+			propertyList = adapter.fromJson(jsonPropertyList);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -50,7 +50,7 @@ public class PropertyListActivity extends AppCompatActivity {
 
 	public void viewItem(View view) throws JSONException {
 		int itemPos = propertyListRecyclerView.getChildLayoutPosition(view);
-		String jsonPropertyString = new JSONArray(jsonPropertyListString).get(itemPos).toString();
+		String jsonPropertyString = new JSONArray(jsonPropertyList).get(itemPos).toString();
 
 		Intent intent = new Intent(this, PropertyActivity.class);
 		intent.putExtra("json_property", jsonPropertyString);
