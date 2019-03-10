@@ -10,7 +10,9 @@ import android.widget.ToggleButton;
 import com.rd.PageIndicatorView;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
-import io.github.glascode.estateagency.database.ActionPropertyTask;
+import io.github.glascode.estateagency.database.GetPropertyTask;
+import io.github.glascode.estateagency.database.InsertPropertyTask;
+import io.github.glascode.estateagency.database.RemovePropertyTask;
 import io.github.glascode.estateagency.model.Property;
 
 import java.io.IOException;
@@ -79,8 +81,8 @@ public class PropertyActivity extends AppCompatActivity {
 		try {
 			property = adapter.fromJson(jsonPropertyString);
 
-			String result = new ActionPropertyTask(getApplicationContext(), property, "get").execute().get();
-			if (result != null && result.equals(property.getId()))
+			Property result = new GetPropertyTask(getApplicationContext(), property.getId()).execute().get();
+			if (result != null && result.getId().equals(property.getId()))
 				propertySaveButton.setChecked(true);
 		} catch (IOException | ExecutionException | InterruptedException e) {
 			e.printStackTrace();
@@ -90,9 +92,9 @@ public class PropertyActivity extends AppCompatActivity {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked)
-					new ActionPropertyTask(getApplicationContext(), property, "insert").execute();
+					new InsertPropertyTask(getApplicationContext(), property).execute();
 				else
-					new ActionPropertyTask(getApplicationContext(), property, "remove").execute();
+					new RemovePropertyTask(getApplicationContext(), property).execute();
 			}
 		});
 

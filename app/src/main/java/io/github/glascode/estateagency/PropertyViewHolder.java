@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import com.squareup.picasso.Picasso;
-import io.github.glascode.estateagency.database.ActionPropertyTask;
+import io.github.glascode.estateagency.database.GetPropertyTask;
+import io.github.glascode.estateagency.database.InsertPropertyTask;
+import io.github.glascode.estateagency.database.RemovePropertyTask;
 import io.github.glascode.estateagency.model.Property;
 
 import java.util.Locale;
@@ -50,8 +52,8 @@ class PropertyViewHolder extends RecyclerView.ViewHolder {
 		propertyPublicationDateText.setText(DateFormat.format("dd MMMM yyyy", property.getDate() * 1000).toString());
 
 		try {
-			String result = new ActionPropertyTask(context, property, "get").execute().get();
-			if (result != null && result.equals(property.getId()))
+			Property result = new GetPropertyTask(context, property.getId()).execute().get();
+			if (result != null && result.getId().equals(property.getId()))
 				propertySaveButton.setChecked(true);
 		} catch (ExecutionException | InterruptedException e) {
 			e.printStackTrace();
@@ -61,9 +63,9 @@ class PropertyViewHolder extends RecyclerView.ViewHolder {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if (isChecked)
-					new ActionPropertyTask(context, property, "insert").execute();
+					new InsertPropertyTask(context, property).execute();
 				else
-					new ActionPropertyTask(context, property, "remove").execute();
+					new RemovePropertyTask(context, property).execute();
 			}
 		});
 	}

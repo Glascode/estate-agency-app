@@ -13,7 +13,7 @@ public abstract class Database extends RoomDatabase {
 
 	public abstract PropertyDao propertyDao();
 
-	static Database getInstance(Context context) {
+	public static Database getInstance(Context context) {
 		if (INSTANCE == null) synchronized (Database.class) {
 			if (INSTANCE == null)
 				INSTANCE = Room.databaseBuilder(context.getApplicationContext(), Database.class, "saved.db").fallbackToDestructiveMigration().build();
