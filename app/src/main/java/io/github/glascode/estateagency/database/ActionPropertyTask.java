@@ -20,16 +20,17 @@ public class ActionPropertyTask extends AsyncTask<Void, Void, String> {
 	protected String doInBackground(Void... voids) {
 		Database database = Database.getInstance(context);
 
-		if (action.equals("insert")) {
-			database.propertyDao().insertProperty(property);
-			System.out.println("Adding " + property.getId());
-		} else if (action.equals("remove")) {
-			database.propertyDao().deleteProperty(property);
-			System.out.println("Removing " + property.getId());
-		} else if (action.equals("get")) {
-			System.out.println("Getting " + property.getId());
-			if (database.propertyDao().getProperty(property.getId()) != null)
-				return database.propertyDao().getProperty(property.getId()).getId();
+		switch (action) {
+			case "insert":
+				database.propertyDao().insertProperty(property);
+				break;
+			case "remove":
+				database.propertyDao().deleteProperty(property);
+				break;
+			case "get":
+				if (database.propertyDao().getProperty(property.getId()) != null)
+					return database.propertyDao().getProperty(property.getId()).getId();
+				break;
 		}
 
 		return null;

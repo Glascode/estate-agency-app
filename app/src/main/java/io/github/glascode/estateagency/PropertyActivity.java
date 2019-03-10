@@ -14,6 +14,7 @@ import io.github.glascode.estateagency.database.ActionPropertyTask;
 import io.github.glascode.estateagency.model.Property;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 public class PropertyActivity extends AppCompatActivity {
@@ -34,6 +35,9 @@ public class PropertyActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		Objects.requireNonNull(getSupportActionBar()).hide();
+
 		setContentView(R.layout.activity_property);
 
 		propertyViewPagerSlider = findViewById(R.id.viewPager_property_slider);
@@ -102,7 +106,7 @@ public class PropertyActivity extends AppCompatActivity {
 		int propertyPrice = property.getPrix();
 		String propertyLocation = property.getVille();
 		String propertyDescription = property.getDescription();
-		String propertyPublicationDate = DateFormat.format("dd MMMM yyyy", property.getDate()).toString();
+		String propertyPublicationDate = DateFormat.format("dd MMMM yyyy", property.getDate() * 1000).toString();
 		String propertySellerName = property.getVendeur().getPrenom() + " " + property.getVendeur().getNom();
 		String propertySellerMail = property.getVendeur().getEmail();
 		String propertySellerNumber = property.getVendeur().getTelephone();

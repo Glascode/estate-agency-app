@@ -16,6 +16,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Objects;
 
 public class PropertyListActivity extends AppCompatActivity {
 
@@ -27,6 +28,9 @@ public class PropertyListActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		Objects.requireNonNull(getSupportActionBar()).hide();
+
 		setContentView(R.layout.activity_property_list);
 
 		propertyListRecyclerView = findViewById(R.id.layout_property_list_view);

@@ -60,7 +60,9 @@ public class Property {
 		this.codePostal = codePostal;
 		this.vendeur = vendeur;
 		this.images = images;
-		this.date = date * 1000;
+		this.date = date;
+
+		System.out.println(this.date);
 	}
 
 	// -- GETTER --
