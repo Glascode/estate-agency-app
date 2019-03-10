@@ -29,20 +29,25 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
+	private SharedPreferences profilePreferences;
 	private JSONArray jsonPropertyListArray;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		Objects.requireNonNull(getSupportActionBar()).hide();
-
 		setContentView(R.layout.activity_main);
+
+		profilePreferences = getSharedPreferences("profile", MODE_PRIVATE);
 
 		if (checkConnectivity(this)) {
 
 			/* Get properties list from the API */
 			makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
+		}
+
+		if (!checkProfile()) {
+
 		}
 	}
 
@@ -168,15 +173,34 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
-	private boolean checkUser() {
-		SharedPreferences profilePreferences = getSharedPreferences("profile", MODE_PRIVATE);
+	/* SharedPreferences */
+
+	private boolean checkProfile() {
 		String restoredPreferences = profilePreferences.getString("fullname", null);
 
 		return restoredPreferences != null;
 	}
 
-	private void addUser() {
-		SharedPreferences profilePreferences = getSharedPreferences("profile", MODE_PRIVATE);
+	private void updateProfile(String fullname, String email) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("fullname", fullname);
+		editor.putString("email", email);
+		editor.apply();
+	}
+
+	private void updateFullname(String fullname) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("fullname", fullname);
+		editor.apply();
+	}
+
+	private void updateEmail(String email) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("email", email);
+		editor.apply();
+	}
+
+	private void prepopulateProfile() {
 		SharedPreferences.Editor editor = profilePreferences.edit();
 		editor.putString("fullname", "John Doe");
 		editor.putString("email", "john.doe@gmail.com");
