@@ -20,7 +20,8 @@ public class Property {
 	private Seller vendeur;
 
 	@PrimaryKey
-	private @NonNull String id;
+	private @NonNull
+	String id;
 	private String titre;
 	private String description;
 	private int nbPieces;
@@ -67,33 +68,43 @@ public class Property {
 	public String getId() {
 		return id;
 	}
+
 	public String getTitre() {
 		return titre;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public int getNbPieces() {
 		return nbPieces;
 	}
+
 	public List<String> getCaracteristiques() {
 		return caracteristiques;
 	}
+
 	public int getPrix() {
 		return prix;
 	}
+
 	public String getVille() {
 		return ville;
 	}
+
 	public String getCodePostal() {
 		return codePostal;
 	}
+
 	public Seller getVendeur() {
 		return vendeur;
 	}
+
 	public List<String> getImages() {
 		return images;
 	}
+
 	public long getDate() {
 		return date;
 	}
@@ -102,23 +113,35 @@ public class Property {
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
-	public void setDescription(String description) { this.description = description; }
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public void setNbPieces(int nbPieces) {
 		this.nbPieces = nbPieces;
 	}
+
 	public void setPrix(int prix) {
 		this.prix = prix;
 	}
+
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
-	public void setCodePostal(String codePostal) { this.codePostal = codePostal; }
+
+	public void setCodePostal(String codePostal) {
+		this.codePostal = codePostal;
+	}
+
 	public void setVendeur(Seller vendeur) {
 		this.vendeur = vendeur;
 	}
+
 	public void setDate(long date) {
 		this.date = date;
 	}
@@ -144,4 +167,5 @@ public class Property {
 				"\tvendeur: " + vendeur + "\n" +
 				"\tdate: " + date + "\n}\n";
 	}
+
 }

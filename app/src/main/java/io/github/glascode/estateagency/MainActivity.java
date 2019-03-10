@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -80,20 +81,35 @@ public class MainActivity extends AppCompatActivity {
 
 	public void launchProfileActivity(View view) {
 		List<Property> savedPropertyList;
+
 		try {
 			savedPropertyList = new ListPropertyTask(getApplicationContext()).execute().get();
 
 			if (savedPropertyList != null && !savedPropertyList.isEmpty()) {
 				Moshi moshi = new Moshi.Builder().build();
-				JsonAdapter<List<Property>> adapter = moshi.adapter(Types.newParameterizedType(List.class, Property.class));
+
+				Type type = Types.newParameterizedType(List.class, Property.class);
+				JsonAdapter<List<Property>> adapter = moshi.adapter(type);
 
 				Intent intent = new Intent(this, PropertyListActivity.class);
 				intent.putExtra("json_property_list", adapter.toJson(savedPropertyList));
 
 				startActivity(intent);
+			} else {
+				throw new NullPointerException("The savedPropertyList is null or is empty.");
 			}
 		} catch (ExecutionException | InterruptedException e) {
-			Snackbar.make(findViewById(R.id.layout_main), "Unable to retrieve the list of properties", Snackbar.LENGTH_LONG).show();
+			Snackbar.make(
+					findViewById(R.id.layout_main),
+					"Unable to retrieve the list of saved properties",
+					Snackbar.LENGTH_LONG
+			).show();
+		} catch (NullPointerException e) {
+			Snackbar.make(
+					findViewById(R.id.layout_main),
+					"No saved properties",
+					Snackbar.LENGTH_LONG
+			).show();
 		}
 	}
 
