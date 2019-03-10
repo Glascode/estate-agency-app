@@ -21,32 +21,37 @@
 		app:layout_constraintTop_toTopOf="parent">
 
 		<android.support.design.button.MaterialButton
-			android:id="@+id/btn_random_property"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:onClick="launchPropertyActivity"
-			android:text="@string/action_random_property" />
+				android:id="@+id/btn_random_property"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="8dp"
+				android:onClick="launchPropertyActivity"
+				android:text="@string/action_random_property"
+				app:backgroundTint="@color/colorPrimary"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Button"/>
 
 		<android.support.design.button.MaterialButton
-			android:id="@+id/btn_propose_property"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:text="@string/action_propose_property" />
+				android:id="@+id/btn_propose_property"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="8dp"
+				android:text="@string/action_propose_property"
+				app:backgroundTint="@color/colorPrimary"/>
 
 		<android.support.design.button.MaterialButton
-			android:id="@+id/btn_list_properties"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:onClick="launchPropertyListActivity"
-			android:text="@string/action_properties_list" />
+				android:id="@+id/btn_list_properties"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="8dp"
+				android:onClick="launchPropertyListActivity"
+				android:text="@string/action_properties_list"
+				app:backgroundTint="@color/colorPrimary"/>
 
 		<android.support.design.button.MaterialButton
-			android:id="@+id/btn_profile"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="@string/action_profile" />
+				android:id="@+id/btn_profile"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/action_profile"
+				app:backgroundTint="@color/colorPrimary"/>
 	</LinearLayout>
 </android.support.constraint.ConstraintLayout>
