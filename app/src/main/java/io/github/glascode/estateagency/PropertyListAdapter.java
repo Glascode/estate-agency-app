@@ -59,10 +59,13 @@ class PropertyListAdapter extends BaseAdapter {
 		} else
 			propertyItemViewHolder = (PropertyItemViewHolder) convertView.getTag();
 
+		String propertyPrice = String.format(Locale.FRANCE, "%d", propertyList.get(position).getPrix()) + " €";
+		String propertyLocation = propertyList.get(position).getCodePostal() + " " + propertyList.get(position).getVille();
+
 		Picasso.get().load(propertyList.get(position).getImages().get(0)).fit().centerCrop().into(propertyItemViewHolder.propertyImageView);
 		propertyItemViewHolder.propertyTitleText.setText(propertyList.get(position).getTitre());
-		propertyItemViewHolder.propertyPriceText.setText(String.format(Locale.FRANCE, "%d", propertyList.get(position).getPrix()) + " €");
-		propertyItemViewHolder.propertyLocationText.setText(propertyList.get(position).getVille());
+		propertyItemViewHolder.propertyPriceText.setText(propertyPrice);
+		propertyItemViewHolder.propertyLocationText.setText(propertyLocation);
 		propertyItemViewHolder.propertyPublicationDateText.setText(DateFormat.format("dd MMMM yyyy", propertyList.get(position).getDate() * 1000).toString());
 		propertyItemViewHolder.propertySaveButton.setFocusable(false);
 

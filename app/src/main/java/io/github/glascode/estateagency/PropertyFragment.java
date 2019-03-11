@@ -35,6 +35,8 @@ public class PropertyFragment extends Fragment {
 	private TextView propertyTitleText;
 	private TextView propertyPriceText;
 	private TextView propertyLocationText;
+	private TextView propertyRoomText;
+	private TextView propertyFeaturesText;
 	private TextView propertyDescriptionText;
 	private TextView propertyPublicationDateText;
 	private TextView propertySellerNameText;
@@ -81,6 +83,8 @@ public class PropertyFragment extends Fragment {
 		propertyTitleText = view.findViewById(R.id.text_property_title);
 		propertyPriceText = view.findViewById(R.id.text_property_price);
 		propertyLocationText = view.findViewById(R.id.text_property_location);
+		propertyRoomText = view.findViewById(R.id.text_property_room);
+		propertyFeaturesText = view.findViewById(R.id.text_property_features);
 		propertyDescriptionText = view.findViewById(R.id.text_property_description);
 		propertyPublicationDateText = view.findViewById(R.id.text_property_publication_date);
 		propertySellerNameText = view.findViewById(R.id.text_property_seller_name);
@@ -128,14 +132,26 @@ public class PropertyFragment extends Fragment {
 
 		String propertyTitle = property.getTitre();
 		int propertyPrice = property.getPrix();
-		String propertyLocation = property.getVille();
+		String propertyLocation = property.getCodePostal() + " " + property.getVille();
+		int propertyRoomNumber = property.getNbPieces();
 		String propertyDescription = property.getDescription();
 		String propertyPublicationDate = DateFormat.format("dd MMMM yyyy", property.getDate() * 1000).toString();
 		String propertySellerName = property.getVendeur().getPrenom() + " " + property.getVendeur().getNom();
 
+		StringBuilder propertyFeatures = new StringBuilder();
+
+		for (int i = 0; i < property.getCaracteristiques().size(); i++) {
+			if (i < property.getCaracteristiques().size() - 1)
+				propertyFeatures.append(property.getCaracteristiques().get(i)).append(", ");
+			else
+				propertyFeatures.append(property.getCaracteristiques().get(i));
+		}
+
 		propertyTitleText.setText(getString(R.string.title_property, propertyTitle));
 		propertyPriceText.setText(getString(R.string.msg_property_price, propertyPrice));
 		propertyLocationText.setText(getString(R.string.msg_property_location, propertyLocation));
+		propertyRoomText.setText(getString(R.string.msg_property_room, propertyRoomNumber));
+		propertyFeaturesText.setText(getString(R.string.msg_property_features, propertyFeatures.toString()));
 		propertyDescriptionText.setText(getString(R.string.msg_property_description, propertyDescription));
 		propertyPublicationDateText.setText(getString(R.string.msg_property_publication_date, propertyPublicationDate));
 		propertySellerNameText.setText(getString(R.string.msg_property_seller_name, propertySellerName));
