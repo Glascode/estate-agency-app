@@ -98,8 +98,9 @@ public class PropertyFragment extends Fragment {
 					bottomAppBar.getMenu().getItem(2).setChecked(true);
 					bottomAppBar.getMenu().getItem(2).setIcon(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.ic_favorite_colored));
 
-					if (((MainActivity) getActivity()).checkProfile())
+					if (((MainActivity) getActivity()).checkProfile()) {
 						extendedFloatingActionButton.show();
+					}
 				}
 			}
 		} catch (ExecutionException | InterruptedException e) {

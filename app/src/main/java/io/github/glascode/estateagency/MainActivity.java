@@ -202,7 +202,9 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 					item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_colored));
 					item.setChecked(true);
 
-					extendedFloatingActionButton.show();
+					if (checkProfile()) {
+						extendedFloatingActionButton.show();
+					}
 				} else if (item.isChecked()) {
 					new RemovePropertyTask(getApplicationContext(), property).execute();
 					item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_border));
