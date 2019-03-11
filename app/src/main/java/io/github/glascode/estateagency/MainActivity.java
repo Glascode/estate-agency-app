@@ -6,7 +6,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.snackbar.Snackbar;
 import org.json.JSONArray;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,15 +40,13 @@ public class MainActivity extends AppCompatActivity {
 		}
 
 		if (jsonPropertyListArray != null) {
-			Log.d("JSON Response", jsonPropertyListArray.toString());
 			PropertyListFragment propertyListFragment = new PropertyListFragment();
 			Bundle bundle = new Bundle();
 			bundle.putString("json_property_list", jsonPropertyListArray.toString());
 			propertyListFragment.setArguments(bundle);
 			getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, propertyListFragment).commit();
-			propertyListFragment.updateUI();
 		} else {
-			Log.d("PropertyList", "NULL");
+			displayMaterialSnackBar("jsonPropertyListArray is null");
 		}
 	}
 
@@ -59,5 +59,29 @@ public class MainActivity extends AppCompatActivity {
 
 		return true;
 	}
+
+	private void displayMaterialSnackBar(String text) {
+		int marginSide = 0;
+		int marginBottom = 550;
+		Snackbar snackbar = Snackbar.make(
+				findViewById(R.id.layout_main),
+				text,
+				Snackbar.LENGTH_LONG
+		);
+
+		View snackbarView = snackbar.getView();
+		CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) snackbarView.getLayoutParams();
+
+		params.setMargins(
+				params.leftMargin + marginSide,
+				params.topMargin,
+				params.rightMargin + marginSide,
+				params.bottomMargin + marginBottom
+		);
+
+		snackbarView.setLayoutParams(params);
+		snackbar.show();
+	}
+
 
 }

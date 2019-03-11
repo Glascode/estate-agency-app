@@ -2,6 +2,7 @@ package io.github.glascode.estateagency;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,17 +42,21 @@ public class PropertyListFragment extends Fragment {
 		Type type = Types.newParameterizedType(List.class, Property.class);
 		JsonAdapter<List<Property>> adapter = moshi.adapter(type);
 
+
 		if (getArguments() != null) {
 			jsonPropertyList = getArguments().getString("json_property_list");
+
+			try {
+				if (jsonPropertyList != null) {
+					propertyList = adapter.fromJson(jsonPropertyList);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
-		try {
-			if (jsonPropertyList != null) {
-				propertyList = adapter.fromJson(jsonPropertyList);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		PropertyAdapter propertyAdapter = new PropertyAdapter(propertyList);
+		propertyListRecyclerView.setAdapter(propertyAdapter);
 
 		return view;
 	}
@@ -66,7 +71,4 @@ public class PropertyListFragment extends Fragment {
 		String jsonPropertyString = new JSONArray(jsonPropertyList).get(itemPos).toString();
 	}
 
-	public void updateUI() {
-		propertyListRecyclerView.setAdapter(new PropertyAdapter(propertyList));
-	}
 }
