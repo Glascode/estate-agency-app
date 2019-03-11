@@ -1,51 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<androidx.constraintlayout.widget.ConstraintLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+	<FrameLayout
+			android:id="@+id/fragment_container"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toTopOf="@+id/layout_bottom_app_bar"/>
 
-        <Button
-            android:id="@+id/btn_random_property"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:onClick="launchRandomPropertyActivity"
-            android:text="@string/action_random_property" />
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+			android:id="@+id/layout_bottom_app_bar"
+			android:layout_height="88dp"
+			android:layout_width="0dp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:id="@+id/btn_propose_property"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/action_propose_property" />
+		<com.google.android.material.bottomappbar.BottomAppBar
+				android:id="@+id/bottom_app_bar"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom"
+				app:fabAlignmentMode="center"
+				app:fabCradleMargin="0dp"
+				app:fabCradleRoundedCornerRadius="0dp"
+				app:navigationIcon="@drawable/ic_menu"/>
 
-        <Button
-            android:id="@+id/btn_list_properties"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/action_properties_list" />
+		<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+				android:id="@+id/fab"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+				app:layout_anchor="@id/bottom_app_bar"
+				app:icon="@drawable/ic_add"
+				android:backgroundTint="@color/colorPrimary"
+				app:iconTint="@color/design_default_color_background"
+				android:textAllCaps="false"
+				android:textColor="@color/design_default_color_background"
+				app:rippleColor="@color/design_default_color_background"
+		/>
 
-        <Button
-            android:id="@+id/btn_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/action_profile" />
-    </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
