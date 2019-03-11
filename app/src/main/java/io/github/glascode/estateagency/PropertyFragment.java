@@ -76,7 +76,7 @@ public class PropertyFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				//TODO: Integrate property comments
-				Toast.makeText(getContext(), "Adding comment", Toast.LENGTH_LONG).show();
+				Toast.makeText(getContext(), "Add a comment", Toast.LENGTH_LONG).show();
 			}
 		});
 
@@ -93,14 +93,12 @@ public class PropertyFragment extends Fragment {
 		try {
 			Property result = new GetPropertyTask(getContext(), property.getId()).execute().get();
 
-			System.out.println(result);
-
 			if (result != null) {
 				if (result.getId().equals(property.getId())) {
 					bottomAppBar.getMenu().getItem(2).setChecked(true);
 					bottomAppBar.getMenu().getItem(2).setIcon(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.ic_favorite_colored));
 
-					if (((MainActivity)getActivity()).checkProfile())
+					if (((MainActivity) getActivity()).checkProfile())
 						extendedFloatingActionButton.show();
 				}
 			}
