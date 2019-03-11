@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-public class PropertyListAdapter extends BaseAdapter {
-	private Context context;
-	private List<Property> propertyList;
+class PropertyListAdapter extends BaseAdapter {
+	private final Context context;
+	private final List<Property> propertyList;
 
 	public PropertyListAdapter(Context context, List<Property> propertyList) {
 		this.context = context;
@@ -61,9 +61,10 @@ public class PropertyListAdapter extends BaseAdapter {
 
 		Picasso.get().load(propertyList.get(position).getImages().get(0)).fit().centerCrop().into(propertyItemViewHolder.propertyImageView);
 		propertyItemViewHolder.propertyTitleText.setText(propertyList.get(position).getTitre());
-		propertyItemViewHolder.propertyPriceText.setText(String.format(Locale.FRANCE,"%d", propertyList.get(position).getPrix()) + " €");
+		propertyItemViewHolder.propertyPriceText.setText(String.format(Locale.FRANCE, "%d", propertyList.get(position).getPrix()) + " €");
 		propertyItemViewHolder.propertyLocationText.setText(propertyList.get(position).getVille());
 		propertyItemViewHolder.propertyPublicationDateText.setText(DateFormat.format("dd MMMM yyyy", propertyList.get(position).getDate() * 1000).toString());
+		propertyItemViewHolder.propertySaveButton.setFocusable(false);
 
 		try {
 			Property result = new GetPropertyTask(context, propertyList.get(position).getId()).execute().get();

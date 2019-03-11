@@ -1,9 +1,5 @@
 <resources>
 	<string name="app_name">Estate Agency</string>
-	<string name="action_random_property">Random property</string>
-	<string name="action_propose_property">Propose a property</string>
-	<string name="action_properties_list">List of properties</string>
-	<string name="action_profile">Profile</string>
 
 	<string name="title_property">%s</string>
 	<string name="msg_property_image_desc">Image of the property</string>
@@ -12,20 +8,29 @@
 	<string name="msg_property_descriptionTitle">Description</string>
 	<string name="msg_property_description">%s</string>
 	<string name="msg_property_publication_date">Published the %s</string>
+	<string name="msg_property_sellerTitle">Vendeur</string>
 	<string name="msg_property_seller_name">%s</string>
-	<string name="msg_property_seller_mail">%s</string>
-	<string name="msg_property_seller_number">%s</string>
-	<string name="msg_property_saveIcon_desc">IconButton to save a property
-	</string>
-	<string name="call">Call</string>
-	<string name="mail">Mail</string>
 
-	<string name="action_favorite">Favoris</string>
+	<string name="action_add_property">Add a new property</string>
 	<string name="action_search">Search</string>
+	<string name="action_save">Save</string>
+	<string name="action_call">Call</string>
+	<string name="action_mail">Mail</string>
 
-	<string name="nav_item1">Navigation item 1</string>
-	<string name="nav_item2">Navigation item 2</string>
-	<string name="nav_item3">Navigation item 3</string>
+	<string name="nav_saved_properties">Saved properties</string>
+	<string name="nav_profile">Profile</string>
 
-	<string name="fab_add_property">Add a new property</string>
+	<string name="profile_image_desc">Account icon</string>
+	<string name="profile_creation_name">Name</string>
+	<string name="profile_creation_mail">Email address</string>
+	<string name="profile_creation_phone">Phone number</string>
+	<string name="action_profile_validate">Validate</string>
+
+	<string name="profile_infos_name">Name:</string>
+	<string name="profile_infos_mail">Mail address:</string>
+	<string name="profile_infos_phone">Phone number:</string>
+
+	<string name="profile_infos_name_value">%s</string>
+	<string name="profile_infos_mail_value">%s</string>
+	<string name="profile_infos_phone_value">%s</string>
 </resources>

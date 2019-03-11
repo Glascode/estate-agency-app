@@ -11,8 +11,8 @@ import java.util.List;
 
 public class ListStringConverter {
 
-	private static Moshi moshi = new Moshi.Builder().build();
-	private static JsonAdapter<List<String>> adapter = moshi.adapter(Types.newParameterizedType(List.class, String.class));
+	private static final Moshi moshi = new Moshi.Builder().build();
+	private static final JsonAdapter<List<String>> adapter = moshi.adapter(Types.newParameterizedType(List.class, String.class));
 
 	@TypeConverter
 	public static List<String> stringToList(String data) {

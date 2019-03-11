@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ListPropertyTask extends AsyncTask<Void, Void, List<Property>> {
 
-	private Context context;
+	private final Context context;
 
 	public ListPropertyTask(Context context) {
 		this.context = context;

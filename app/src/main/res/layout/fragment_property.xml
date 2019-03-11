@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 			xmlns:app="http://schemas.android.com/apk/res-auto"
-			xmlns:tools="http://schemas.android.com/tools"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:fillViewport="true"
-			tools:context=".PropertyActivity">
+			android:id="@+id/layout_property">
 
 	<LinearLayout
 			android:id="@+id/linearLayout"
@@ -15,7 +14,7 @@
 
 		<androidx.constraintlayout.widget.ConstraintLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
+				android:layout_height="match_parent"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
@@ -48,45 +47,31 @@
 					android:id="@+id/text_property_title"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					android:layout_marginStart="16dp"
-					android:layout_marginEnd="16dp"
 					android:text="@string/title_property"
 					android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-					app:layout_constraintEnd_toStartOf="@+id/btn_save_property"
-					app:layout_constraintStart_toStartOf="parent"
+					android:textStyle="bold"
 					android:layout_marginTop="8dp"
 					app:layout_constraintTop_toBottomOf="@+id/viewPager_property_slider"
-					android:textStyle="bold"/>
+					app:layout_constraintStart_toStartOf="parent"
+					android:layout_marginStart="16dp"
+			/>
 
 			<TextView
 					android:id="@+id/text_property_price"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="16dp"
-					android:layout_marginTop="8dp"
+					android:layout_height="24dp"
 					android:text="@string/msg_property_price"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/text_property_title"
 					android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-					android:textColor="@color/colorAccent"
-					android:textSize="18sp" android:layout_marginEnd="16dp"
-					app:layout_constraintEnd_toStartOf="@+id/btn_save_property"
-					app:layout_constraintHorizontal_bias="0.0"
-					android:layout_width="0dp"/>
-
-			<TextView
-					android:id="@+id/text_property_publication_date"
+					android:textColor="@color/colorPrimary"
+					android:textSize="18sp"
 					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="16dp"
-					android:text="@string/msg_property_publication_date"
+					android:layout_marginTop="8dp"
+					app:layout_constraintTop_toBottomOf="@+id/text_property_title"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/text_property_location"
-					android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-					android:layout_marginEnd="16dp"
-					app:layout_constraintEnd_toStartOf="@+id/btn_save_property"
-					app:layout_constraintHorizontal_bias="0.0"
-					app:layout_constraintBottom_toBottomOf="parent"
-					android:layout_marginBottom="8dp"/>
+					android:layout_marginStart="16dp"
+					android:layout_marginBottom="16dp"
+					app:layout_constraintBottom_toTopOf="@+id/text_property_location"
+			/>
+
 			<TextView
 					android:id="@+id/text_property_location"
 					android:layout_width="0dp"
@@ -96,49 +81,37 @@
 					app:layout_constraintStart_toStartOf="parent"
 					android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
 					app:layout_constraintTop_toBottomOf="@+id/text_property_price"
-					app:layout_constraintEnd_toStartOf="@+id/btn_save_property"
-					android:layout_marginEnd="16dp"
-					app:layout_constraintHorizontal_bias="0.0"
-					android:layout_marginTop="16dp"/>
-			<ToggleButton
-					android:id="@+id/btn_save_property"
-					android:layout_width="24dp"
-					android:layout_height="24dp"
-					android:layout_marginEnd="16dp"
-					android:layout_marginBottom="16dp"
-					android:background="@drawable/button_favorite"
-					app:layout_constraintBottom_toBottomOf="parent"
+					android:layout_marginTop="16dp"
 					app:layout_constraintEnd_toEndOf="parent"
-					android:text=""
-					android:textOff=""
-					android:textOn=""
+					android:layout_marginEnd="16dp"/>
+			<TextView
+					android:id="@+id/text_property_publication_date"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:text="@string/msg_property_publication_date"
+					android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
 					android:layout_marginTop="8dp"
-					app:layout_constraintTop_toBottomOf="@+id/viewPager_property_slider"/>
-
-		</androidx.constraintlayout.widget.ConstraintLayout>
-
-		<androidx.constraintlayout.widget.ConstraintLayout
-				android:layout_width="match_parent"
-				android:layout_height="0dp"
-				android:layout_weight="1">
-
+					app:layout_constraintTop_toBottomOf="@+id/text_property_location"
+					app:layout_constraintStart_toStartOf="parent"
+					android:layout_marginStart="16dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					android:layout_marginEnd="16dp"/>
 			<TextView
 					android:id="@+id/text_property_descriptionTitle"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					android:layout_marginStart="16dp"
-					android:layout_marginTop="8dp"
-					android:layout_marginEnd="16dp"
 					android:text="@string/msg_property_descriptionTitle"
 					android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/text_property_publication_date"
+					android:layout_marginTop="16dp"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"/>
-
+					android:layout_marginStart="16dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					android:layout_marginEnd="16dp"/>
 			<TextView
 					android:id="@+id/text_property_description"
 					android:layout_width="0dp"
-					android:layout_height="0dp"
+					android:layout_height="wrap_content"
 					android:layout_marginStart="16dp"
 					android:layout_marginTop="8dp"
 					android:layout_marginEnd="16dp"
@@ -148,56 +121,34 @@
 					app:layout_constraintTop_toBottomOf="@+id/text_property_descriptionTitle"
 					android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
 					android:layout_marginBottom="8dp"
-					app:layout_constraintBottom_toBottomOf="parent"/>
-
-		</androidx.constraintlayout.widget.ConstraintLayout>
-
-		<androidx.constraintlayout.widget.ConstraintLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
-
+					app:layout_constraintBottom_toTopOf="@+id/text_property_sellerTitle"
+					app:layout_constraintVertical_bias="0.0"/>
+			<TextView
+					android:text="@string/msg_property_sellerTitle"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:id="@+id/text_property_sellerTitle"
+					android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+					android:layout_marginBottom="8dp"
+					app:layout_constraintBottom_toTopOf="@+id/text_property_seller_name"
+					app:layout_constraintStart_toStartOf="parent"
+					android:layout_marginStart="16dp"
+					app:layout_constraintEnd_toEndOf="parent"
+					android:layout_marginEnd="16dp"/>
 			<TextView
 					android:id="@+id/text_property_seller_name"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
-					android:layout_marginStart="16dp"
-					android:layout_marginTop="16dp"
 					android:text="@string/msg_property_seller_name"
-					app:layout_constraintStart_toStartOf="parent"
 					android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-					app:layout_constraintTop_toTopOf="parent"
-			/>
-			<TextView
-					android:id="@+id/text_property_seller_mail"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="16dp"
-					android:text="@string/msg_property_seller_mail"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/text_property_seller_name"
-					android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-					app:layout_constraintEnd_toEndOf="parent"
-					android:layout_marginEnd="16dp"
-					app:layout_constraintHorizontal_bias="0.0"/>
-
-			<TextView
-					android:id="@+id/text_property_seller_number"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="16dp"
-					android:layout_marginBottom="16dp"
-					android:text="@string/msg_property_seller_number"
+					android:layout_marginBottom="8dp"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/text_property_seller_mail"
-					android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+					android:layout_marginStart="16dp"
 					app:layout_constraintEnd_toEndOf="parent"
-					android:layout_marginEnd="16dp"
-					app:layout_constraintHorizontal_bias="0.0"
-					android:onClick="launchSellerCall"/>
+					android:layout_marginEnd="16dp"/>
 
 		</androidx.constraintlayout.widget.ConstraintLayout>
-
 
 	</LinearLayout>
 </ScrollView>

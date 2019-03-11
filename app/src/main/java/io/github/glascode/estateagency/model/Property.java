@@ -9,6 +9,7 @@ import io.github.glascode.estateagency.SellerConverter;
 
 import java.util.List;
 
+@SuppressWarnings("NullableProblems")
 @Entity
 public class Property {
 
@@ -48,7 +49,7 @@ public class Property {
 	 * @param images           the images of the Property
 	 * @param date             the publication date of the Property
 	 */
-	public Property(String id, String titre, String description, int nbPieces,
+	public Property(@NonNull String id, String titre, String description, int nbPieces,
 					List<String> caracteristiques, int prix, String ville, String codePostal,
 					Seller vendeur, List<String> images, long date) {
 		this.id = id;
@@ -65,6 +66,7 @@ public class Property {
 	}
 
 	// -- GETTER --
+	@NonNull
 	public String getId() {
 		return id;
 	}
@@ -110,6 +112,7 @@ public class Property {
 	}
 
 	// -- SETTER --
+	@NonNull
 	public void setId(String id) {
 		this.id = id;
 	}

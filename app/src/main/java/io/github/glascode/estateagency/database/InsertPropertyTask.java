@@ -6,8 +6,8 @@ import io.github.glascode.estateagency.model.Property;
 
 public class InsertPropertyTask extends AsyncTask<Void, Void, Void> {
 
-	private Context context;
-	private Property property;
+	private final Context context;
+	private final Property property;
 
 	public InsertPropertyTask(Context context, Property property) {
 		this.context = context;

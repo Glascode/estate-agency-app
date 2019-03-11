@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class SellerConverter {
 
-	private static Moshi moshi = new Moshi.Builder().build();
-	private static JsonAdapter<Seller> adapter = moshi.adapter(Types.newParameterizedType(Seller.class));
+	private static final Moshi moshi = new Moshi.Builder().build();
+	private static final JsonAdapter<Seller> adapter = moshi.adapter(Types.newParameterizedType(Seller.class));
 
 	@TypeConverter
 	public static Seller stringToSeller(String data) {

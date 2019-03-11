@@ -6,8 +6,8 @@ import io.github.glascode.estateagency.model.Property;
 
 public class GetPropertyTask extends AsyncTask<Void, Void, Property> {
 
-	private Context context;
-	private String propertyId;
+	private final Context context;
+	private final String propertyId;
 
 	public GetPropertyTask(Context context, String propertyId) {
 		this.context = context;

@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.navigation.NavigationView;
+
+import java.util.Objects;
 
 public class BottomNavigationDrawerFragment extends BottomSheetDialogFragment {
 	@Nullable
@@ -18,19 +20,28 @@ public class BottomNavigationDrawerFragment extends BottomSheetDialogFragment {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.nav1:
-				Toast.makeText(getContext(), "Bottom Navigation Drawer menu item 1", Toast.LENGTH_SHORT).show();
-				break;
-			case R.id.nav2:
-				Toast.makeText(getContext(), "Bottom Navigation Drawer menu item 2", Toast.LENGTH_SHORT).show();
-				break;
-			case R.id.nav3:
-				Toast.makeText(getContext(), "Bottom Navigation Drawer menu item 3", Toast.LENGTH_SHORT).show();
-				break;
-		}
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 
-		return true;
+		final NavigationView navigationView = Objects.requireNonNull(Objects.requireNonNull(getView())).findViewById(R.id.navigation_view);
+		navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+			@Override
+			public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+				switch (item.getItemId()) {
+					case R.id.nav_profile:
+						((MainActivity) Objects.requireNonNull(Objects.requireNonNull(getActivity()))).showProfile();
+
+						dismiss();
+						break;
+					case R.id.nav_saved_properties:
+						((MainActivity) Objects.requireNonNull(Objects.requireNonNull(getActivity()))).showSavedPropertyList();
+
+						dismiss();
+						break;
+				}
+
+				return true;
+			}
+		});
 	}
 }
