@@ -12,7 +12,7 @@ import android.view.View;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
-import io.github.glascode.estateagency.database.ListPropertyTask;
+import io.github.glascode.estateagency.database.GetPropertyListTask;
 import io.github.glascode.estateagency.model.Property;
 import okhttp3.*;
 import org.json.JSONArray;
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 		List<Property> savedPropertyList;
 
 		try {
-			savedPropertyList = new ListPropertyTask(getApplicationContext()).execute().get();
+			savedPropertyList = new GetPropertyListTask(getApplicationContext()).execute().get();
 
 			if (savedPropertyList != null && !savedPropertyList.isEmpty()) {
 				Moshi moshi = new Moshi.Builder().build();
