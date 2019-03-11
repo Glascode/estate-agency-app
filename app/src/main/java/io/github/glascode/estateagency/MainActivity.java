@@ -1,6 +1,9 @@
 package io.github.glascode.estateagency;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,8 +22,8 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+import io.github.glascode.estateagency.database.GetPropertyListTask;
 import io.github.glascode.estateagency.database.InsertPropertyTask;
-import io.github.glascode.estateagency.database.ListPropertyTask;
 import io.github.glascode.estateagency.database.RemovePropertyTask;
 import io.github.glascode.estateagency.model.Property;
 import okhttp3.*;
@@ -35,7 +38,8 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity implements PropertyListFragment.OnPropertySelectedListener {
 
-	private JSONArray jsonPropertyListArray;
+	private volatile JSONArray jsonPropertyListArray;
+	private List<Property> savedPropertyList;
 	private Property property;
 	private BottomAppBar bottomAppBar;
 	private ExtendedFloatingActionButton extendedFloatingActionButton;
@@ -60,17 +64,25 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 
 		extendedFloatingActionButton = findViewById(R.id.fab);
 
-		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
+		if (checkConnectivity(getApplicationContext()))
+			makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
+		else
+			jsonPropertyListArray = new JSONArray();
 
-		while (jsonPropertyListArray == null) {
-			System.out.println("waiting...");
-		}
+		while (true) if (jsonPropertyListArray != null) break;
 
 		if (findViewById(R.id.fragment_container) != null)
 			if (savedInstanceState != null)
 				return;
 
 		showPropertyList(jsonPropertyListArray.toString());
+	}
+
+	private boolean checkConnectivity(Context context) {
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+		return activeNetwork != null && activeNetwork.isConnected();
 	}
 
 	private void showPropertyList(String json) {
@@ -96,9 +108,9 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 
 	public void showSavedPropertyList() {
 		try {
-			List<Property> savedPropertyList = new ListPropertyTask(getApplicationContext()).execute().get();
+			savedPropertyList = new GetPropertyListTask(getApplicationContext()).execute().get();
 
-			if (savedPropertyList != null && !savedPropertyList.isEmpty()) {
+			if (savedPropertyList != null) {
 				Moshi moshi = new Moshi.Builder().build();
 
 				Type type = Types.newParameterizedType(List.class, Property.class);
@@ -228,10 +240,19 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 		PropertyFragment propertyFragment = new PropertyFragment();
 
 		Bundle bundle = new Bundle();
-		try {
-			bundle.putString("json_property", jsonPropertyListArray.get(position).toString());
-		} catch (JSONException e) {
-			e.printStackTrace();
+		if (checkConnectivity(getApplicationContext()))
+			try {
+				bundle.putString("json_property", jsonPropertyListArray.get(position).toString());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		else {
+			Moshi moshi = new Moshi.Builder().build();
+
+			Type type = Types.newParameterizedType(Property.class);
+			JsonAdapter<Property> adapter = moshi.adapter(type);
+
+			bundle.putString("json_property", adapter.toJson(savedPropertyList.get(position)));
 		}
 
 		propertyFragment.setArguments(bundle);

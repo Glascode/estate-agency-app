@@ -6,11 +6,11 @@ import io.github.glascode.estateagency.model.Property;
 
 import java.util.List;
 
-public class ListPropertyTask extends AsyncTask<Void, Void, List<Property>> {
+public class GetPropertyListTask extends AsyncTask<Void, Void, List<Property>> {
 
 	private final Context context;
 
-	public ListPropertyTask(Context context) {
+	public GetPropertyListTask(Context context) {
 		this.context = context;
 	}
 
