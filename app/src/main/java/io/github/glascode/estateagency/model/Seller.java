@@ -1,6 +1,6 @@
 package io.github.glascode.estateagency.model;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class Seller {
 

@@ -6,8 +6,8 @@ import io.github.glascode.estateagency.model.Property;
 
 public class RemovePropertyTask extends AsyncTask<Void, Void, Void> {
 
-	private Context context;
-	private Property property;
+	private final Context context;
+	private final Property property;
 
 	public RemovePropertyTask(Context context, Property property) {
 		this.context = context;

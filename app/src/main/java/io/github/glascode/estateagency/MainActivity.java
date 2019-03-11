@@ -2,19 +2,36 @@ package io.github.glascode.estateagency;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+
 import io.github.glascode.estateagency.database.GetPropertyListTask;
+import io.github.glascode.estateagency.database.InsertPropertyTask;
+import io.github.glascode.estateagency.database.RemovePropertyTask;
 import io.github.glascode.estateagency.model.Property;
 import okhttp3.*;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,117 +39,187 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PropertyListFragment.OnPropertySelectedListener {
 
-	private JSONArray jsonPropertyListArray;
+	private SharedPreferences profilePreferences;
 
+	private volatile JSONArray jsonPropertyListArray;
+	private List<Property> savedPropertyList;
+	private Property property;
+	private BottomAppBar bottomAppBar;
+	private ExtendedFloatingActionButton extendedFloatingActionButton;
+
+	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Objects.requireNonNull(getSupportActionBar()).hide();
-
 		setContentView(R.layout.activity_main);
 
-		if (checkConnectivity(this)) {
+		profilePreferences = getSharedPreferences("profile", MODE_PRIVATE);
 
-			/* Get properties list from the API */
-			makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
-		}
-	}
+		bottomAppBar = findViewById(R.id.bottom_app_bar);
+		setSupportActionBar(bottomAppBar);
 
-	public void launchPropertyActivity(View view) throws JSONException {
-		try {
-			Random rand = new Random();
-			int randomPos = rand.nextInt(jsonPropertyListArray.length());
-			String jsonPropertyString = jsonPropertyListArray.get(randomPos).toString();
-
-			Intent intent = new Intent(this, PropertyActivity.class);
-			intent.putExtra("json_property", jsonPropertyString);
-
-			startActivity(intent);
-		} catch (NullPointerException e) {
-			Snackbar.make(findViewById(R.id.layout_main),
-					"Unable to retrieve a property",
-					Snackbar.LENGTH_LONG).show();
-		}
-	}
-
-	public void launchPropertyListActivity(View view) {
-		try {
-			Intent intent = new Intent(this, PropertyListActivity.class);
-			intent.putExtra("json_property_list", jsonPropertyListArray.toString());
-
-			startActivity(intent);
-		} catch (NullPointerException e) {
-			Snackbar.make(findViewById(R.id.layout_main),
-					"Unable to retrieve the list of properties",
-					Snackbar.LENGTH_LONG).show();
-		}
-	}
-
-	public void launchProfileActivity(View view) {
-		List<Property> savedPropertyList;
-
-		try {
-			savedPropertyList = new GetPropertyListTask(getApplicationContext()).execute().get();
-
-			if (savedPropertyList != null && !savedPropertyList.isEmpty()) {
-				Moshi moshi = new Moshi.Builder().build();
-
-				Type type = Types.newParameterizedType(List.class, Property.class);
-				JsonAdapter<List<Property>> adapter = moshi.adapter(type);
-
-				Intent intent = new Intent(this, PropertyListActivity.class);
-				intent.putExtra("json_property_list", adapter.toJson(savedPropertyList));
-
-				startActivity(intent);
-			} else {
-				throw new NullPointerException("The savedPropertyList is null or is empty.");
+		bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				BottomNavigationDrawerFragment bottomNavigationDrawerFragment = new BottomNavigationDrawerFragment();
+				bottomNavigationDrawerFragment.show(getSupportFragmentManager(), bottomNavigationDrawerFragment.getTag());
 			}
-		} catch (ExecutionException | InterruptedException e) {
-			Snackbar.make(findViewById(R.id.layout_main),
-					"Unable to retrieve the list of saved properties",
-					Snackbar.LENGTH_LONG).show();
-		} catch (NullPointerException e) {
-			Snackbar.make(findViewById(R.id.layout_main),
-					"No saved properties",
-					Snackbar.LENGTH_LONG).show();
-		}
+		});
+
+		extendedFloatingActionButton = findViewById(R.id.fab);
+
+		if (checkConnectivity(getApplicationContext()))
+			makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
+		else
+			jsonPropertyListArray = new JSONArray();
+
+		while (true) if (jsonPropertyListArray != null) break;
+
+		if (findViewById(R.id.fragment_container) != null)
+			if (savedInstanceState != null)
+				return;
+
+		showPropertyList(jsonPropertyListArray.toString());
 	}
 
 	private boolean checkConnectivity(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
-		if (activeNetwork != null && activeNetwork.isConnected()) {
+		return activeNetwork != null && activeNetwork.isConnected();
+	}
 
-			/* Connected to Internet */
-			if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+	private void showPropertyList(String json) {
+		Bundle bundle = new Bundle();
+		bundle.putString("json_property_list", json);
 
-				/* Connected to Wi-Fi */
-				Snackbar.make(findViewById(R.id.layout_main),
-						"Connected to Wi-Fi",
-						Snackbar.LENGTH_LONG).show();
-			} else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+		PropertyListFragment propertyListFragment = new PropertyListFragment();
+		propertyListFragment.setArguments(bundle);
 
-				/* Connected to the mobile provider's data plan */
-				Snackbar.make(findViewById(R.id.layout_main),
-						"Connected to Data",
-						Snackbar.LENGTH_LONG).show();
+		if (findViewById(R.id.fragment_container) == null)
+			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, propertyListFragment).commit();
+		else
+			getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, propertyListFragment).commit();
+
+		extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//TODO: Integrate the creation of a property
+				Toast.makeText(getApplicationContext(), "Creation of a property", Toast.LENGTH_LONG).show();
 			}
-			return true;
+		});
+	}
+
+	public void showSavedPropertyList() {
+		try {
+			savedPropertyList = new GetPropertyListTask(getApplicationContext()).execute().get();
+
+			if (savedPropertyList != null) {
+				Moshi moshi = new Moshi.Builder().build();
+
+				Type type = Types.newParameterizedType(List.class, Property.class);
+				JsonAdapter<List<Property>> adapter = moshi.adapter(type);
+
+				showPropertyList(adapter.toJson(savedPropertyList));
+
+				editNavigationMenu();
+			}
+		} catch (ExecutionException | InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void showProfile() {
+		ProfileFragment profileFragment = new ProfileFragment();
+
+		if (checkProfile()) {
+
 		}
 
-		/* Not connected */
-		Snackbar.make(findViewById(R.id.layout_main),
-				"Not connected",
-				Snackbar.LENGTH_LONG).show();
-		return false;
+		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
+
+		extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//TODO: Integrate the creation of an user
+				Toast.makeText(getApplicationContext(), "Validation", Toast.LENGTH_LONG).show();
+			}
+		});
+
+		editNavigationMenu();
+	}
+
+	private void editNavigationMenu() {
+		bottomAppBar.setNavigationIcon(R.drawable.ic_arrow_back);
+		bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				showPropertyList(jsonPropertyListArray.toString());
+
+				bottomAppBar.setNavigationIcon(R.drawable.ic_menu);
+				bottomAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						BottomNavigationDrawerFragment bottomNavigationDrawerFragment = new BottomNavigationDrawerFragment();
+						bottomNavigationDrawerFragment.show(getSupportFragmentManager(), bottomNavigationDrawerFragment.getTag());
+					}
+				});
+			}
+		});
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu_main_bottomappbar, menu);
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.app_bar_call:
+				Intent intent_call = new Intent(Intent.ACTION_DIAL);
+				intent_call.setData(Uri.parse("tel:" + property.getVendeur().getTelephone()));
+
+				startActivity(intent_call);
+				break;
+			case R.id.app_bar_mail:
+				Intent intent_mail = new Intent(Intent.ACTION_VIEW);
+				intent_mail.setData(Uri.parse("mailto:" + property.getVendeur().getEmail()));
+				startActivity(intent_mail);
+
+				break;
+			case R.id.app_bar_save:
+				if (!item.isChecked()) {
+					new InsertPropertyTask(getApplicationContext(), property).execute();
+					item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_colored));
+					item.setChecked(true);
+
+					extendedFloatingActionButton.show();
+				} else if (item.isChecked()) {
+					new RemovePropertyTask(getApplicationContext(), property).execute();
+					item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_border));
+					item.setChecked(false);
+
+					extendedFloatingActionButton.hide();
+				}
+				break;
+			case R.id.app_bar_search:
+				Toast.makeText(getApplicationContext(), "Search", Toast.LENGTH_LONG).show();
+		}
+
+		return true;
+	}
+
+	public void setProperty(Property property) {
+		this.property = property;
 	}
 
 	private void makeRequest(String url) {
@@ -167,4 +254,72 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
+	@Override
+	public void onItemSelected(Property property) {
+		PropertyFragment propertyFragment = new PropertyFragment();
+
+		Bundle bundle = new Bundle();
+
+		Moshi moshi = new Moshi.Builder().build();
+		Type type = Types.newParameterizedType(Property.class);
+		JsonAdapter<Property> adapter = moshi.adapter(type);
+
+		bundle.putString("json_property", adapter.toJson(property));
+
+		propertyFragment.setArguments(bundle);
+
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+		transaction.replace(R.id.fragment_container, propertyFragment);
+		transaction.addToBackStack(null);
+		transaction.commit();
+	}
+
+	public SharedPreferences getProfilePreferences() {
+		return profilePreferences;
+	}
+
+	public boolean checkProfile() {
+		String restoredPreferences = profilePreferences.getString("lastname", null);
+
+		return restoredPreferences != null;
+	}
+
+	public void updateProfile(String lastname, String firstname, String email, String phone) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("lastname", lastname);
+		editor.putString("firstname", firstname);
+		editor.putString("email", email);
+		editor.putString("phone", phone);
+		editor.apply();
+	}
+
+	public void updateLastname(String lastname) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("lastname", lastname);
+		editor.apply();
+	}
+
+	public void updateFirstname(String firstname) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("firstname", firstname);
+		editor.apply();
+	}
+
+	public void updateEmail(String email) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("email", email);
+		editor.apply();
+	}
+
+	public void updatePhone(String phone) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("phone", phone);
+		editor.apply();
+	}
+
+	public void clearData() {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.clear();
+		editor.commit();
+	}
 }
