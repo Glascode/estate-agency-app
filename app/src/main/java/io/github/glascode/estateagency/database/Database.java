@@ -8,7 +8,7 @@ import io.github.glascode.estateagency.database.dao.PropertyDao;
 import io.github.glascode.estateagency.model.Comment;
 import io.github.glascode.estateagency.model.Property;
 
-@android.arch.persistence.room.Database(entities = {Property.class, Comment.class}, version = 3, exportSchema = false)
+@android.arch.persistence.room.Database(entities = {Property.class, Comment.class}, version = 4, exportSchema = false)
 public abstract class Database extends RoomDatabase {
 
 	private static volatile Database INSTANCE;

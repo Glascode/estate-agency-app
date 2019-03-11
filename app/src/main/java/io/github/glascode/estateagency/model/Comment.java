@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity(foreignKeys
 		= @ForeignKey(
@@ -13,7 +14,8 @@ import android.arch.persistence.room.PrimaryKey;
 public class Comment {
 
 	@PrimaryKey
-	private String id;
+	private @NonNull
+	String id;
 	@ColumnInfo(name = "property_id")
 	private String propertyId;
 	private String content;
