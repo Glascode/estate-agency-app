@@ -13,21 +13,25 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
+
 import io.github.glascode.estateagency.database.GetPropertyListTask;
 import io.github.glascode.estateagency.database.InsertPropertyTask;
 import io.github.glascode.estateagency.database.RemovePropertyTask;
 import io.github.glascode.estateagency.model.Property;
 import okhttp3.*;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -207,6 +211,8 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 					extendedFloatingActionButton.hide();
 				}
 				break;
+			case R.id.app_bar_search:
+				Toast.makeText(getApplicationContext(), "Search", Toast.LENGTH_LONG).show();
 		}
 
 		return true;
@@ -272,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 		return profilePreferences;
 	}
 
-	public boolean checkProfile(){
+	public boolean checkProfile() {
 		String restoredPreferences = profilePreferences.getString("lastname", null);
 
 		return restoredPreferences != null;
@@ -289,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 
 	public void updateLastname(String lastname) {
 		SharedPreferences.Editor editor = profilePreferences.edit();
-		editor.putString("lastname",  lastname);
+		editor.putString("lastname", lastname);
 		editor.apply();
 	}
 
@@ -309,5 +315,11 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 		SharedPreferences.Editor editor = profilePreferences.edit();
 		editor.putString("phone", phone);
 		editor.apply();
+	}
+
+	public void clearData() {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.clear();
+		editor.commit();
 	}
 }

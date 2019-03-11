@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.ListFragment;
@@ -58,8 +60,18 @@ public class PropertyListFragment extends ListFragment {
 		extendedFloatingActionButton.setIcon(getResources().getDrawable(R.drawable.ic_add));
 		extendedFloatingActionButton.setText(R.string.action_add_property);
 		extendedFloatingActionButton.extend();
+		extendedFloatingActionButton.hide();
 
-		extendedFloatingActionButton.show();
+		extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//TODO: Property creation
+				Toast.makeText(getContext(), "Creation of property", Toast.LENGTH_LONG).show();
+			}
+		});
+
+		if (((MainActivity) getActivity()).checkProfile())
+			extendedFloatingActionButton.show();
 
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}

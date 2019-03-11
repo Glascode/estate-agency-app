@@ -21,7 +21,7 @@ public class ProfileFragment extends Fragment {
 
 	@Nullable
 	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+	public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view;
 
 		BottomAppBar bottomAppBar = Objects.requireNonNull(Objects.requireNonNull(getActivity())).findViewById(R.id.bottom_app_bar);
@@ -29,6 +29,8 @@ public class ProfileFragment extends Fragment {
 
 		ExtendedFloatingActionButton extendedFloatingActionButton = getActivity().findViewById(R.id.fab);
 		extendedFloatingActionButton.setIcon(null);
+		extendedFloatingActionButton.extend();
+		extendedFloatingActionButton.show();
 
 		if(((MainActivity) getActivity()).checkProfile()) {
 			view = inflater.inflate(R.layout.fragment_profile_infos, container, false);
@@ -63,6 +65,8 @@ public class ProfileFragment extends Fragment {
 					if (profileLastnameInput.getText().length() != 0 && profileFirstnameInput.getText().length() != 0 && profileEmailInput.getText().length() != 0 && profilePhoneInput.getText().length() != 0) {
 						((MainActivity) getActivity()).updateProfile(profileLastnameInput.getText().toString(), profileFirstnameInput.getText().toString(), profileEmailInput.getText().toString(), profilePhoneInput.getText().toString());
 					}
+
+					((MainActivity) getActivity()).showProfile();
 				}
 			}
 		});
