@@ -15,12 +15,13 @@ public class Comment {
 	@PrimaryKey
 	private String id;
 	@ColumnInfo(name = "property_id")
-	private String propertyid;
+	private String propertyId;
 	private String content;
 	private long creationDate;
 
-	public Comment(String id, String content, long creationDate) {
+	public Comment(String id, String propertyId, String content, long creationDate) {
 		this.id = id;
+		this.propertyId = propertyId;
 		this.content = content;
 		this.creationDate = creationDate;
 	}
@@ -29,8 +30,8 @@ public class Comment {
 		return id;
 	}
 
-	public String getPropertyid() {
-		return propertyid;
+	public String getPropertyId() {
+		return propertyId;
 	}
 
 	public String getContent() {
@@ -45,8 +46,8 @@ public class Comment {
 		this.id = id;
 	}
 
-	public void setPropertyid(String propertyid) {
-		this.propertyid = propertyid;
+	public void setPropertyId(String propertyId) {
+		this.propertyId = propertyId;
 	}
 
 	public void setContent(String content) {

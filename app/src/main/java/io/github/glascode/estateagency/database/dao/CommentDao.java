@@ -11,7 +11,7 @@ public interface CommentDao {
 	@Query("SELECT * FROM Comment WHERE id = :commentId")
 	Comment getProperty(String commentId);
 
-	@Query("SELECT * FROM Comment WHERE property_id = :propertyId")
+	@Query("SELECT * FROM Comment WHERE propertyId = :propertyId")
 	List<Comment> getCommentsFromPropertyId(String propertyId);
 
 	@Insert
