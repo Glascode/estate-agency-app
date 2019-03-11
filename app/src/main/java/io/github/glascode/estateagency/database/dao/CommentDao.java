@@ -21,6 +21,6 @@ public interface CommentDao {
 	void updateComment(Comment comment);
 
 	@Delete
-	void removeComment(Comment comment);
+	void deleteComment(Comment comment);
 
 }
