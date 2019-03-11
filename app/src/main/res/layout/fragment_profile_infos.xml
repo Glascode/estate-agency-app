@@ -2,84 +2,120 @@
 <androidx.constraintlayout.widget.ConstraintLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
-		android:layout_width="match_parent"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
 		android:layout_height="match_parent">
 
-	<ImageView
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginBottom="8dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<ImageView
+			android:id="@+id/img_profile_create"
 			android:layout_width="300dp"
 			android:layout_height="300dp"
-			app:srcCompat="@drawable/ic_account_circle"
-			android:id="@+id/img_profile_create"
+			android:contentDescription="@string/profile_image_desc"
 			app:layout_constraintEnd_toEndOf="parent"
-			android:layout_marginEnd="8dp"
 			app:layout_constraintStart_toStartOf="parent"
-			android:layout_marginStart="8dp"
 			app:layout_constraintTop_toTopOf="parent"
-			android:layout_marginTop="32dp"
-			android:contentDescription="@string/profile_image_desc"/>
+			app:srcCompat="@drawable/ic_account_circle" />
 
-	<TextView
+		<TextView
+			android:id="@+id/text_profile_infos_lastname"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:text="@string/profile_infos_name"
-			app:layout_constraintTop_toBottomOf="@+id/img_profile_create"
-			app:layout_constraintStart_toStartOf="@+id/img_profile_create"
 			android:layout_marginTop="64dp"
+			android:text="@string/profile_infos_lastame"
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-			android:id="@+id/text_profile_infos_name"
-			app:layout_constraintEnd_toEndOf="@+id/img_profile_create"/>
+			app:layout_constraintEnd_toEndOf="@+id/img_profile_create"
+			app:layout_constraintStart_toStartOf="@+id/img_profile_create"
+			app:layout_constraintTop_toBottomOf="@+id/img_profile_create" />
 
-	<TextView
+		<TextView
+			android:id="@+id/text_profile_infos_lastname_value"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:text="@string/profile_infos_mail"
-			app:layout_constraintStart_toStartOf="@+id/img_profile_create"
+			android:text="@string/profile_infos_lastname_value"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+			android:textSize="14sp"
+			app:layout_constraintEnd_toEndOf="@+id/text_profile_infos_lastname"
+			app:layout_constraintStart_toStartOf="@+id/text_profile_infos_lastname"
+			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_lastname" />
+
+		<TextView
+			android:id="@+id/text_profile_infos_firstname"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:text="@string/profile_infos_firstname"
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_lastname_value" />
+
+		<TextView
+			android:id="@+id/text_profile_infos_firstname_value"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:text="@string/profile_infos_firstname_value"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+			android:textSize="14sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_firstname" />
+
+		<TextView
 			android:id="@+id/text_profile_infos_mail"
-			android:layout_marginTop="8dp"
-			app:layout_constraintTop_toBottomOf="@+id/textView7"
-			app:layout_constraintEnd_toEndOf="@+id/img_profile_create"/>
-
-	<TextView
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:text="@string/profile_infos_phone"
-			app:layout_constraintStart_toStartOf="@+id/img_profile_create"
+			android:layout_marginTop="8dp"
+			android:text="@string/profile_infos_mail"
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-			android:id="@+id/text_profile_infos_phone"
-			android:layout_marginTop="8dp"
-			app:layout_constraintTop_toBottomOf="@+id/textView9"
-			app:layout_constraintEnd_toEndOf="@+id/img_profile_create"/>
+			app:layout_constraintEnd_toEndOf="@+id/img_profile_create"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="@+id/img_profile_create"
+			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_firstname_value" />
 
-	<TextView
+		<TextView
+			android:id="@+id/text_profile_infos_mail_value"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:text="@string/profile_infos_name_value"
-			android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-			app:layout_constraintEnd_toEndOf="@+id/text_profile_infos_phone"
-			android:id="@+id/textView8"
-			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_phone"
-			app:layout_constraintStart_toStartOf="@+id/text_profile_infos_phone"
-			android:textSize="18sp"/>
-
-	<TextView
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:text="@string/profile_infos_name_value"
-			android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_mail"
-			app:layout_constraintStart_toStartOf="@+id/text_profile_infos_mail"
+			android:text="@string/profile_infos_mail_value"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+			android:textSize="14sp"
 			app:layout_constraintEnd_toEndOf="@+id/text_profile_infos_mail"
-			android:id="@+id/textView9" android:textSize="18sp"/>
+			app:layout_constraintStart_toStartOf="@+id/text_profile_infos_mail"
+			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_mail" />
 
-	<TextView
+		<TextView
+			android:id="@+id/text_profile_infos_phone"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:text="@string/profile_infos_name_value"
-			android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_name"
-			app:layout_constraintStart_toStartOf="@+id/text_profile_infos_name"
-			app:layout_constraintEnd_toEndOf="@+id/text_profile_infos_name"
-			android:id="@+id/textView7" android:textSize="18sp"/>
+			android:layout_marginTop="8dp"
+			android:text="@string/profile_infos_phone"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+			app:layout_constraintEnd_toEndOf="@+id/img_profile_create"
+			app:layout_constraintStart_toStartOf="@+id/img_profile_create"
+			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_mail_value" />
+
+		<TextView
+			android:id="@+id/text_profile_infos_phone_value"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:text="@string/profile_infos_mail_value"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+			android:textSize="14sp"
+			app:layout_constraintEnd_toEndOf="@+id/text_profile_infos_phone"
+			app:layout_constraintStart_toStartOf="@+id/text_profile_infos_phone"
+			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_phone" />
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

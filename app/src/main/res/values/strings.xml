@@ -26,16 +26,19 @@
 	<string name="nav_profile">Profile</string>
 
 	<string name="profile_image_desc">Account icon</string>
-	<string name="profile_creation_name">Name</string>
+	<string name="profile_creation_lastname">Lastname</string>
+	<string name="profile_creation_firstname">Firstname</string>
 	<string name="profile_creation_mail">Email address</string>
 	<string name="profile_creation_phone">Phone number</string>
 	<string name="action_profile_validate">Validate</string>
 
-	<string name="profile_infos_name">Name:</string>
+	<string name="profile_infos_lastame">Lastname:</string>
+	<string name="profile_infos_firstname">Firstname:</string>
 	<string name="profile_infos_mail">Mail address:</string>
 	<string name="profile_infos_phone">Phone number:</string>
 
-	<string name="profile_infos_name_value">%s</string>
+	<string name="profile_infos_lastname_value">%s</string>
+	<string name="profile_infos_firstname_value">%s</string>
 	<string name="profile_infos_mail_value">%s</string>
 	<string name="profile_infos_phone_value">%s</string>
 </resources>
