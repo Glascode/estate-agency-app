@@ -7,14 +7,14 @@ import io.github.glascode.estateagency.database.dao.CommentDao;
 import io.github.glascode.estateagency.database.dao.PropertyDao;
 import io.github.glascode.estateagency.model.Comment;
 import io.github.glascode.estateagency.model.Property;
+import io.github.glascode.estateagency.model.Seller;
 
-@androidx.room.Database(entities = {Property.class, Comment.class}, version = 4, exportSchema = false)
+@androidx.room.Database(entities = {Property.class, Comment.class}, version = 5, exportSchema = false)
 public abstract class Database extends RoomDatabase {
 
 	private static volatile Database INSTANCE;
 
 	abstract PropertyDao propertyDao();
-
 	abstract CommentDao commentDao();
 
 	static Database getInstance(Context context) {

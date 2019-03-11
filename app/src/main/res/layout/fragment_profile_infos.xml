@@ -73,11 +73,11 @@
 			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_firstname" />
 
 		<TextView
-			android:id="@+id/text_profile_infos_mail"
+			android:id="@+id/text_profile_infos_email"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="8dp"
-			android:text="@string/profile_infos_mail"
+			android:text="@string/profile_infos_email"
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
 			app:layout_constraintEnd_toEndOf="@+id/img_profile_create"
 			app:layout_constraintHorizontal_bias="0.0"
@@ -85,15 +85,15 @@
 			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_firstname_value" />
 
 		<TextView
-			android:id="@+id/text_profile_infos_mail_value"
+			android:id="@+id/text_profile_infos_email_value"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:text="@string/profile_infos_mail_value"
+			android:text="@string/profile_infos_email_value"
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
 			android:textSize="14sp"
-			app:layout_constraintEnd_toEndOf="@+id/text_profile_infos_mail"
-			app:layout_constraintStart_toStartOf="@+id/text_profile_infos_mail"
-			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_mail" />
+			app:layout_constraintEnd_toEndOf="@+id/text_profile_infos_email"
+			app:layout_constraintStart_toStartOf="@+id/text_profile_infos_email"
+			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_email" />
 
 		<TextView
 			android:id="@+id/text_profile_infos_phone"
@@ -104,13 +104,13 @@
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
 			app:layout_constraintEnd_toEndOf="@+id/img_profile_create"
 			app:layout_constraintStart_toStartOf="@+id/img_profile_create"
-			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_mail_value" />
+			app:layout_constraintTop_toBottomOf="@+id/text_profile_infos_email_value" />
 
 		<TextView
 			android:id="@+id/text_profile_infos_phone_value"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:text="@string/profile_infos_mail_value"
+			android:text="@string/profile_infos_email_value"
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
 			android:textSize="14sp"
 			app:layout_constraintEnd_toEndOf="@+id/text_profile_infos_phone"

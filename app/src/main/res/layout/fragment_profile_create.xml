@@ -68,35 +68,38 @@
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
 				style="@style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox"
-				android:hint="@string/profile_creation_mail"
+				android:hint="@string/profile_creation_email"
 				app:layout_constraintTop_toBottomOf="@+id/input_layout_profile_creation_lastname"
 				app:layout_constraintStart_toStartOf="@+id/img_profile_create"
 				app:layout_constraintEnd_toEndOf="@+id/img_profile_create"
 				android:layout_marginTop="16dp"
-				android:id="@+id/input_profile_creation_mail"
+				android:id="@+id/input_layout_profile_creation_email"
 				app:boxStrokeColor="@color/colorPrimary">
 
 			<com.google.android.material.textfield.TextInputEditText
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:inputType="textEmailAddress"/>
-		</com.google.android.material.textfield.TextInputLayout>
-		<com.google.android.material.textfield.TextInputLayout
-				android:layout_width="0dp"
+				android:id="@+id/input_edit_profile_creation_email"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				style="@style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox"
-				android:hint="@string/profile_creation_phone"
-				android:id="@+id/input_profile_creation_phone"
-				app:layout_constraintStart_toStartOf="@+id/img_profile_create"
-				app:layout_constraintEnd_toEndOf="@+id/img_profile_create"
-				android:layout_marginTop="16dp"
-				app:layout_constraintTop_toBottomOf="@+id/input_profile_creation_mail"
-				app:boxStrokeColor="@color/colorPrimary">
+				android:inputType="textEmailAddress" />
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<com.google.android.material.textfield.TextInputLayout
+			android:id="@+id/input_layout_profile_creation_phone"
+			style="@style/ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="16dp"
+			android:hint="@string/profile_creation_phone"
+			app:boxStrokeColor="@color/colorPrimary"
+			app:layout_constraintEnd_toEndOf="@+id/img_profile_create"
+			app:layout_constraintStart_toStartOf="@+id/img_profile_create"
+			app:layout_constraintTop_toBottomOf="@+id/input_layout_profile_creation_email">
 
 			<com.google.android.material.textfield.TextInputEditText
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:inputType="phone"/>
+				android:id="@+id/input_edit_profile_creation_phone"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:inputType="phone" />
 		</com.google.android.material.textfield.TextInputLayout>
 
 		<androidx.constraintlayout.widget.Guideline

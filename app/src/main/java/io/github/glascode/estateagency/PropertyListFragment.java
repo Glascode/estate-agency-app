@@ -27,7 +27,7 @@ public class PropertyListFragment extends ListFragment {
 	private List<Property> propertyList;
 
 	public interface OnPropertySelectedListener {
-		void onItemSelected(int position);
+		void onItemSelected(Property property);
 	}
 
 	@Override
@@ -59,6 +59,8 @@ public class PropertyListFragment extends ListFragment {
 		extendedFloatingActionButton.setText(R.string.action_add_property);
 		extendedFloatingActionButton.extend();
 
+		extendedFloatingActionButton.show();
+
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 
@@ -73,7 +75,7 @@ public class PropertyListFragment extends ListFragment {
 	public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 
-		callback.onItemSelected(position);
+		callback.onItemSelected(propertyList.get(position));
 	}
 }
 

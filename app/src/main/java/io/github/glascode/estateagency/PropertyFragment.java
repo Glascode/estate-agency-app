@@ -70,6 +70,7 @@ public class PropertyFragment extends Fragment {
 		ExtendedFloatingActionButton extendedFloatingActionButton = getActivity().findViewById(R.id.fab);
 		extendedFloatingActionButton.setIcon(getResources().getDrawable(R.drawable.ic_add));
 		extendedFloatingActionButton.shrink();
+		extendedFloatingActionButton.hide();
 
 		extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -92,9 +93,16 @@ public class PropertyFragment extends Fragment {
 		try {
 			Property result = new GetPropertyTask(getContext(), property.getId()).execute().get();
 
+			System.out.println(result);
+
 			if (result != null) {
-				bottomAppBar.getMenu().getItem(2).setChecked(result.getId().equals(property.getId()));
-				bottomAppBar.getMenu().getItem(2).setIcon(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.ic_favorite_colored));
+				if (result.getId().equals(property.getId())) {
+					bottomAppBar.getMenu().getItem(2).setChecked(true);
+					bottomAppBar.getMenu().getItem(2).setIcon(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.ic_favorite_colored));
+
+					if (((MainActivity)getActivity()).checkProfile())
+						extendedFloatingActionButton.show();
+				}
 			}
 		} catch (ExecutionException | InterruptedException e) {
 			e.printStackTrace();

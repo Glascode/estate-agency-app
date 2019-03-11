@@ -2,6 +2,7 @@ package io.github.glascode.estateagency;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -38,6 +39,8 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity implements PropertyListFragment.OnPropertySelectedListener {
 
+	private SharedPreferences profilePreferences;
+
 	private volatile JSONArray jsonPropertyListArray;
 	private List<Property> savedPropertyList;
 	private Property property;
@@ -50,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_main);
+
+		profilePreferences = getSharedPreferences("profile", MODE_PRIVATE);
 
 		bottomAppBar = findViewById(R.id.bottom_app_bar);
 		setSupportActionBar(bottomAppBar);
@@ -128,6 +133,10 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 	public void showProfile() {
 		ProfileFragment profileFragment = new ProfileFragment();
 
+		if (checkProfile()) {
+
+		}
+
 		getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, profileFragment).commit();
 
 		extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -188,10 +197,14 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 					new InsertPropertyTask(getApplicationContext(), property).execute();
 					item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_colored));
 					item.setChecked(true);
+
+					extendedFloatingActionButton.show();
 				} else if (item.isChecked()) {
 					new RemovePropertyTask(getApplicationContext(), property).execute();
 					item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_favorite_border));
 					item.setChecked(false);
+
+					extendedFloatingActionButton.hide();
 				}
 				break;
 		}
@@ -236,24 +249,16 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 	}
 
 	@Override
-	public void onItemSelected(int position) {
+	public void onItemSelected(Property property) {
 		PropertyFragment propertyFragment = new PropertyFragment();
 
 		Bundle bundle = new Bundle();
-		if (checkConnectivity(getApplicationContext()))
-			try {
-				bundle.putString("json_property", jsonPropertyListArray.get(position).toString());
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		else {
-			Moshi moshi = new Moshi.Builder().build();
 
-			Type type = Types.newParameterizedType(Property.class);
-			JsonAdapter<Property> adapter = moshi.adapter(type);
+		Moshi moshi = new Moshi.Builder().build();
+		Type type = Types.newParameterizedType(Property.class);
+		JsonAdapter<Property> adapter = moshi.adapter(type);
 
-			bundle.putString("json_property", adapter.toJson(savedPropertyList.get(position)));
-		}
+		bundle.putString("json_property", adapter.toJson(property));
 
 		propertyFragment.setArguments(bundle);
 
@@ -261,5 +266,48 @@ public class MainActivity extends AppCompatActivity implements PropertyListFragm
 		transaction.replace(R.id.fragment_container, propertyFragment);
 		transaction.addToBackStack(null);
 		transaction.commit();
+	}
+
+	public SharedPreferences getProfilePreferences() {
+		return profilePreferences;
+	}
+
+	public boolean checkProfile(){
+		String restoredPreferences = profilePreferences.getString("lastname", null);
+
+		return restoredPreferences != null;
+	}
+
+	public void updateProfile(String lastname, String firstname, String email, String phone) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("lastname", lastname);
+		editor.putString("firstname", firstname);
+		editor.putString("email", email);
+		editor.putString("phone", phone);
+		editor.apply();
+	}
+
+	public void updateLastname(String lastname) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("lastname",  lastname);
+		editor.apply();
+	}
+
+	public void updateFirstname(String firstname) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("firstname", firstname);
+		editor.apply();
+	}
+
+	public void updateEmail(String email) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("email", email);
+		editor.apply();
+	}
+
+	public void updatePhone(String phone) {
+		SharedPreferences.Editor editor = profilePreferences.edit();
+		editor.putString("phone", phone);
+		editor.apply();
 	}
 }
