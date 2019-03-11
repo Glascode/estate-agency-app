@@ -1,40 +1,52 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
-		xmlns:tools="http://schemas.android.com/tools" android:id="@+id/layout_main"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent">
 
-	<fragment
-			android:id="@+id/container_fragment"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_weight="1.0"
-			android:name="io.github.glascode.estateagency.PropertyListFragment"
-			tools:layout="@layout/fragment_property_list"/>
+	<FrameLayout
+			android:id="@+id/fragment_container"
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toTopOf="@+id/layout_bottom_app_bar"/>
 
-	<com.google.android.material.bottomappbar.BottomAppBar
-			android:id="@+id/bottom_app_bar"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_gravity="bottom"
-			app:fabAlignmentMode="center"
-			app:fabCradleMargin="0dp"
-			app:fabCradleRoundedCornerRadius="0dp"
-			app:navigationIcon="@drawable/ic_menu_black_24dp"/>
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+			android:id="@+id/layout_bottom_app_bar"
+			android:layout_height="80dp"
+			android:layout_width="0dp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent">
 
-	<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-			android:id="@+id/fab"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-			app:layout_anchor="@id/bottom_app_bar"
-			app:icon="@drawable/ic_add_white_24dp"
-			android:text="@string/fab_add_property"
-			app:useCompatPadding="false"
-			app:backgroundTint="@color/colorPrimary"
-			app:iconTint="@color/design_default_color_background"
-			android:textAllCaps="false"
-			android:textColor="@color/design_default_color_background"/>
+		<com.google.android.material.bottomappbar.BottomAppBar
+				android:id="@+id/bottom_app_bar"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom"
+				app:fabAlignmentMode="center"
+				app:fabCradleMargin="0dp"
+				app:fabCradleRoundedCornerRadius="0dp"
+				app:navigationIcon="@drawable/ic_menu_black_24dp"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+		<com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+				android:id="@+id/fab"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+				app:layout_anchor="@id/bottom_app_bar"
+				app:icon="@drawable/ic_add_white_24dp"
+				android:text="@string/fab_add_property"
+				app:useCompatPadding="false"
+				app:backgroundTint="@color/colorPrimary"
+				app:iconTint="@color/design_default_color_background"
+				android:textAllCaps="false"
+				android:textColor="@color/design_default_color_background"
+				app:rippleColor="@color/design_default_color_background"/>
+
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

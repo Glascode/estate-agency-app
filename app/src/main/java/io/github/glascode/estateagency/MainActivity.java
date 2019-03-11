@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PropertyListFragment.OnPropertySelectedListener {
 
 	private JSONArray jsonPropertyListArray;
 	private Menu menu;
@@ -38,13 +38,22 @@ public class MainActivity extends AppCompatActivity {
 
 		makeRequest("https://ensweb.users.info.unicaen.fr/android-estate/mock-api/dernieres.json");
 
-		while (jsonPropertyListArray == null){
+		while (jsonPropertyListArray == null) {
 			System.out.println("waiting...");
 		}
 
-		PropertyListFragment propertyListFragment = new PropertyListFragment();
-		getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, propertyListFragment).commit();
-		propertyListFragment.generatePropertyList(jsonPropertyListArray.toString());
+		if (findViewById(R.id.fragment_container) != null) {
+			if (savedInstanceState != null)
+				return;
+
+			Bundle bundle = new Bundle();
+			bundle.putString("json_property_list", jsonPropertyListArray.toString());
+
+			PropertyListFragment propertyListFragment = new PropertyListFragment();
+			propertyListFragment.setArguments(bundle);
+
+			getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, propertyListFragment).commit();
+		}
 	}
 
 	@Override
@@ -87,5 +96,10 @@ public class MainActivity extends AppCompatActivity {
 				}
 			}
 		});
+	}
+
+	@Override
+	public void onItemSelected(int position) {
+
 	}
 }

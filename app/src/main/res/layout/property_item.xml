@@ -7,7 +7,7 @@
 		android:onClick="viewItem">
 
 	<ImageView
-			android:id="@+id/image_property_item"
+			android:id="@+id/image_item_property"
 			android:layout_width="100dp"
 			android:layout_height="0dp"
 			android:layout_marginStart="16dp"
@@ -31,7 +31,7 @@
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
 			app:layout_constraintEnd_toStartOf="@+id/btn_save_property_item"
 			app:layout_constraintHorizontal_bias="0.0"
-			app:layout_constraintStart_toEndOf="@+id/image_property_item"
+			app:layout_constraintStart_toEndOf="@+id/image_item_property"
 			app:layout_constraintTop_toTopOf="parent"/>
 
 	<TextView
@@ -43,7 +43,7 @@
 			android:layout_marginEnd="16dp"
 			android:text="TextView"
 			app:layout_constraintHorizontal_bias="0.0"
-			app:layout_constraintStart_toEndOf="@+id/image_property_item"
+			app:layout_constraintStart_toEndOf="@+id/image_item_property"
 			app:layout_constraintTop_toBottomOf="@+id/text_property_item_title"
 			app:layout_constraintEnd_toStartOf="@+id/btn_save_property_item"
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
@@ -55,7 +55,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginStart="8dp"
 			android:text="TextView"
-			app:layout_constraintStart_toEndOf="@+id/image_property_item"
+			app:layout_constraintStart_toEndOf="@+id/image_item_property"
 			app:layout_constraintTop_toBottomOf="@+id/text_property_item_price"
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
 			app:layout_constraintEnd_toStartOf="@+id/btn_save_property_item"
@@ -70,7 +70,7 @@
 			android:text="TextView"
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
 			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintStart_toEndOf="@+id/image_property_item"
+			app:layout_constraintStart_toEndOf="@+id/image_item_property"
 			app:layout_constraintTop_toBottomOf="@+id/text_property_item_location"
 			app:layout_constraintEnd_toStartOf="@+id/btn_save_property_item"
 			android:layout_marginEnd="16dp"/>
